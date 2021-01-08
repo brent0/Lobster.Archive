@@ -1,0 +1,1654 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lobster Archive</title>
+
+
+<!--
+<link href="bootstrap-datetimepicker-master/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
+
+<script src="jquery/jquery-3.5.1.js"></script>
+-->
+<script src="jquery/jquery-1.12.4.js"></script>
+
+<script src="jquery-ui-1.12.1/jquery-ui.js"></script>
+<!-- ocpu library -->
+<script src="opencpu/opencpu-0.4.js"  > </script>
+
+<!--
+<script type="text/javascript" src="bootstrap-datetimepicker-master/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+-->
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.css">
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.structure.css">
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.theme.css">
+<link href="select2-4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="select2-4.0.13/dist/js/select2.full.js"></script>
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+
+}
+
+.left {
+  width: 70%;
+}
+
+.right {
+  width: 30%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.ui-widget {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 0.6em;
+    margin: .1em;
+}
+.ui-button {
+    padding: 0.4em .4em;
+    display: inline-block;
+    position: relative;
+    line-height: normal;
+    margin-right: 0.1em;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow: visible;
+}
+
+fieldset {
+    display: inline-block;
+    padding-right: 13px;
+}
+.img{
+    width: 20px;
+    vertical-align: text-bottom;
+    margin-left: -12px;
+}
+
+.ui-sortable-handle {
+    -ms-touch-action: none;
+    touch-action: none;
+    direction: rtl;
+}
+
+
+  #sortable1, #sortable2 {
+    border: 1px solid #eee;
+    width: 142px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+  }
+  #sortable1 li, #sortable2 li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 120px;
+  }
+.select2-container .select2-selection--multiple {
+    min-height: 23px;
+
+}
+.select2-container {
+    min-width: 155px;
+    font-size: 0.6em;
+}
+.select2-container--classic .select2-selection--multiple .select2-selection__choice {
+
+    border-radius: 4px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px;
+       border: 1px solid #b1dec5;
+    background: #c1e8d2;
+}
+.select2-container--default .select2-search--inline .select2-search__field{
+    width:150px !important;
+}
+
+
+
+
+#sortable1 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #c5c5c5;
+    background: #f6f6f6;
+    color: #777620;
+    font-size: 0.7em;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 2px;
+}
+#sortable2 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #b1dec5;
+    background: #c1e8d2;
+    font-size: 0.7em;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 2px;
+    font-weight: normal;
+    color: #777620;
+
+
+}
+.ui-widget {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 0.6em;
+    margin: .1em;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
+    border: 1px solid #8ac3cf;
+    background: #b1d6de;
+    font-weight: normal;
+    color: #000000;
+}
+.check2.ui-state-active, .check2.ui-widget-content .check2.ui-state-active, .check2.ui-widget-header .check2.ui-state-active, a.ui-button:active, .check2.ui-button:active, .check2.ui-state-active.ui-button:hover {
+    border: 1px solid #b1dec5;
+    background: #c1e8d2;
+    font-weight: normal;
+    color: #000000;
+}
+.ui-widget-header {
+   border-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-bottom-color: #dddddd;
+    background: #ffffff;
+    color: #333333;
+    font-weight: bold;
+}
+.ui-widget-content {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: #333333;
+}
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 1px;
+    background: #fafafa;
+    margin-left: 2px;
+    padding: .4em .4em;
+
+
+}
+.ui-tabs .ui-tabs-nav .ui-state-default {
+     background: #FFFFFF;
+}
+.ui-tabs .ui-tabs-nav .ui-state-active {
+    border: 1px solid #8ac3cf;
+    background: #b1d6de;
+    font-weight: normal;
+    color: #000000;
+}
+
+input[type=text] {
+    width: 80px;
+    margin-right: 9px;
+    margin-bottom: 1px;
+    font-size: 10px;
+    background-color: #c1e8d2;
+    padding: ;
+}
+
+
+
+</style>
+
+<script>
+
+$(function() {
+$( "#namet" ).focus(function() {
+  var availableDocName = [];
+      var cl = $("#sortable2").children().length;
+      for (i = 0; i < cl; i++) {
+        var na = sortable2.children[i].getAttribute('value');
+        na = na.replace(/^.*[\\\/]/, '');
+        na = na.split('.').slice(0, -1).join('.');
+        availableDocName[i] = na
+      }
+
+			$( "#namet" ).autocomplete({
+      source: availableDocName
+    });
+
+});
+
+
+
+  var availableAbstract = [];
+ 	var req = ocpu.rpc("autoavailable",{column: "ABSTRACT"}, function(output){
+			var obj = JSON.parse(output);
+			for (var j in obj){
+				availableAbstract[j] = obj[j]["ABSTRACT"];
+			}
+			$( "#abstractt" ).autocomplete({
+      source: availableAbstract
+    });
+		});
+		req.fail(function(){
+			alert("R returned an error: " + req.responseText);
+		});
+
+  var availableFirstName = [];
+  var availableLastName = [];
+ 	var req = ocpu.rpc("autoavailableName",{}, function(output){
+			var obj = JSON.parse(output);
+
+			for (var j in obj){
+				availableFirstName[j] = obj[j]["FIRST"];
+				availableLastName[j] = obj[j]["LAST"];
+			}
+			$( "#authorfirst1t" ).autocomplete({
+      source: availableFirstName
+    });
+    		$( "#authorlast1t" ).autocomplete({
+      source: availableLastName
+    });
+		});
+		req.fail(function(){
+			alert("R returned an error: " + req.responseText);
+		});
+
+
+var req = ocpu.rpc("autoavailableLFA",{}, function(output){
+    var data = JSON.parse(output);
+    $("#lfat").select2({
+    theme: "classic",
+    closeOnSelect: false,
+    data: data
+    });
+});
+req.fail(function(){
+		alert("R returned an error: " + req.responseText);
+});
+var req = ocpu.rpc("autoavailableDistrict",{}, function(output){
+    var data = JSON.parse(output);
+    $("#Districtt").select2({
+    theme: "classic",
+    closeOnSelect: false,
+    data: data
+    });
+});
+req.fail(function(){
+		alert("R returned an error: " + req.responseText);
+});
+
+var req = ocpu.rpc("autoavailableStatdistrict",{}, function(output){
+    var data = JSON.parse(output);
+    $("#Statdistrictt").select2({
+    theme: "classic",
+    closeOnSelect: false,
+    data: data
+    });
+});
+req.fail(function(){
+		alert("R returned an error: " + req.responseText);
+});
+var req = ocpu.rpc("autoavailableSpecies",{}, function(output){
+    var data = JSON.parse(output);
+    $("#Speciest").select2({
+    theme: "classic",
+    closeOnSelect: false,
+    data: data
+    });
+});
+req.fail(function(){
+		alert("R returned an error: " + req.responseText);
+});
+var req = ocpu.rpc("autoavailablePort",{}, function(output){
+    var data = JSON.parse(output);
+    $("#Portt").select2({
+    theme: "classic",
+    closeOnSelect: false,
+    data: data
+    });
+});
+req.fail(function(){
+		alert("R returned an error: " + req.responseText);
+});
+
+
+
+    $("#myear").select2({
+    theme: "classic",
+    closeOnSelect: false,
+    tags: true,
+    placeholder: {
+    id: '2020', // the value of the option
+    text: 'Select Year(s)'
+    }
+    });
+
+
+  var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div><input type="text" name="authorfirst1t" id="authorfirst1t" placeholder="first" value=""/><input type="text" name="authorlast1t[]" id="authorlast1t" placeholder="last" value=""/><a href="javascript:void(0);" class="remove_button"><img src="minus.png" style = "width:20px; position: absolute; margin-left: -12px;"/></a></div>'; //New input field html
+    var x = 1; //Initial field counter is 1
+
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+
+            $(wrapper).find('input[type=text]').autocomplete({
+                source: availableFirstName
+            });
+            $(wrapper).find('input[type=text]:last').autocomplete({
+                source: availableLastName
+});
+
+
+
+        }
+    });
+
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+
+
+
+
+    $( "#survey" ).checkboxradio({icon: false});
+    $( "#document" ).checkboxradio({icon: false});
+    $( "#manuscript" ).checkboxradio({icon: false});
+    $( "#landingsrecords" ).checkboxradio({icon: false});
+    $( "#portsample" ).checkboxradio({icon: false});
+    $( "#atseasample" ).checkboxradio({icon: false});
+    $( "#tagging" ).checkboxradio({icon: false});
+    $( "#other" ).checkboxradio({icon: false});
+
+$( "#Name" ).checkboxradio({icon: false});
+$( "#namet" ).hide();
+$( "#abstract" ).checkboxradio({icon: false});
+$('#abstractt').hide();
+$( "#Pages" ).checkboxradio({icon: false});
+$('#Pagest').hide();
+$( "#advisorycommittee" ).checkboxradio({icon: false});
+$( "#aerial" ).checkboxradio({icon: false});
+$( "#assessment" ).checkboxradio({icon: false});
+
+$( "#lfa" ).checkboxradio({icon: false});
+$('#lfatdiv').hide();
+$( "#District" ).checkboxradio({icon: false});
+$( "#Districttdiv" ).hide();
+$( "#Statdistrict" ).checkboxradio({icon: false});
+$( "#Statdistricttdiv" ).hide();
+$( "#Species" ).checkboxradio({icon: false});
+$( "#Speciestdiv" ).hide();
+$( "#Port" ).checkboxradio({icon: false});
+$( "#Porttdiv" ).hide();
+$( "#Bait" ).checkboxradio({icon: false});
+$( "#Bait" ).hide();
+$( "#Bycatch" ).checkboxradio({icon: false});
+$( "#Bycatch" ).hide();
+$( "#Catch" ).checkboxradio({icon: false});
+$( "#Catch" ).hide();
+$( "#CatchSummary" ).checkboxradio({icon: false});
+$( "#CatchSummary" ).hide();
+$( "#Catchability" ).checkboxradio({icon: false});
+$( "#Catchability" ).hide();
+$( "#Collectors" ).checkboxradio({icon: false});
+$( "#Collectors" ).hide();
+$( "#Correspondance" ).checkboxradio({icon: false});
+$( "#Correspondance" ).hide();
+$( "#Cusk" ).checkboxradio({icon: false});
+$( "#Cusk" ).hide();
+$( "#Depth" ).checkboxradio({icon: false});
+$( "#Depth" ).hide();
+
+
+$( "#Dive" ).checkboxradio({icon: false});
+$( "#Dive" ).show();
+$( "#Dredge" ).checkboxradio({icon: false});
+$( "#Dredge" ).show();
+$( "#Effort" ).checkboxradio({icon: false});
+$( "#Effort" ).show();
+$( "#Environmentalconditions" ).checkboxradio({icon: false});
+$( "#Environmentalconditions" ).show();
+$( "#Framework" ).checkboxradio({icon: false});
+$( "#Framework" ).show();
+$( "#Gearspecifications" ).checkboxradio({icon: false});
+$( "#Gearspecifications" ).show();
+$( "#Historical" ).checkboxradio({icon: false});
+$( "#Historical" ).show();
+$( "#Images" ).checkboxradio({icon: false});
+$( "#Images" ).show();
+$( "#Inoracle" ).checkboxradio({icon: false});
+$( "#Inoracle" ).show();
+$( "#Indigenous" ).checkboxradio({icon: false});
+$( "#Indigenous" ).show();
+$( "#Interview" ).checkboxradio({icon: false});
+$( "#Interview" ).show();
+$( "#Journal" ).checkboxradio({icon: false});
+$( "#Journal" ).show();
+$( "#Larvae" ).checkboxradio({icon: false});
+$( "#Larvae" ).show();
+$( "#Lengthfrequency" ).checkboxradio({icon: false});
+$( "#Lengthfrequency" ).show();
+$( "#Mandatorylogbook" ).checkboxradio({icon: false});
+$( "#Mandatorylogbook" ).show();
+$( "#Maturity" ).checkboxradio({icon: false});
+$( "#Maturity" ).show();
+$( "#Minutes" ).checkboxradio({icon: false});
+$( "#Minutes" ).show();
+$( "#Morphometrics" ).checkboxradio({icon: false});
+$( "#Morphometrics" ).show();
+$( "#MSC" ).checkboxradio({icon: false});
+$( "#MSC" ).show();
+$( "#Newspaper" ).checkboxradio({icon: false});
+$( "#Newspaper" ).show();
+$( "#Offshore" ).checkboxradio({icon: false});
+$( "#Offshore" ).show();
+$( "#Fishingpositions" ).checkboxradio({icon: false});
+$( "#Fishingpositions" ).show();
+$( "#Poster" ).checkboxradio({icon: false});
+$( "#Poster" ).show();
+$( "#Price" ).checkboxradio({icon: false});
+$( "#Price" ).show();
+$( "#Proceedings" ).checkboxradio({icon: false});
+$( "#Proceedings" ).show();
+$( "#Review" ).checkboxradio({icon: false});
+$( "#Review" ).show();
+$( "#Setdetails" ).checkboxradio({icon: false});
+$( "#Setdetails" ).show();
+$( "#Slipweights" ).checkboxradio({icon: false});
+$( "#Slipweights" ).show();
+$( "#Soaktime" ).checkboxradio({icon: false});
+$( "#Soaktime" ).show();
+$( "#Substrate" ).checkboxradio({icon: false});
+$( "#Substrate" ).show();
+$( "#Suction" ).checkboxradio({icon: false});
+$( "#Suction" ).show();
+$( "#Temperature" ).checkboxradio({icon: false});
+$( "#Temperature" ).show();
+$( "#Trapbased" ).checkboxradio({icon: false});
+$( "#Trapbased" ).show();
+$( "#Trawl" ).checkboxradio({icon: false});
+$( "#Trawl" ).show();
+$( "#Update" ).checkboxradio({icon: false});
+$( "#Update" ).show();
+$( "#Video" ).checkboxradio({icon: false});
+$( "#Video" ).show();
+$( "#Vnotch" ).checkboxradio({icon: false});
+$( "#Vnotch" ).show();
+$( "#Voluntarylogbook" ).checkboxradio({icon: false});
+$( "#Voluntarylogbook" ).show();
+$( "#Workshop" ).checkboxradio({icon: false});
+$( "#Workshop" ).show();
+
+
+  $( "#tabs" ).tabs();
+
+
+    $( "#dragdatatype" ).draggable();
+     $( "#dragdatatype2" ).draggable();
+
+
+
+
+
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+
+
+//$('#feilddatatype').hide();
+
+
+
+
+$("#entSubmit").click(function(){
+
+       var firstnames = "";
+       var lastnames = "";
+       for(i = 0; i < $(authorfirst1t).length; i++){
+        firstnames = firstnames + $(authorfirst1t[i]).val()+ "," ;
+        lastnames = lastnames + $(authorlast1t[i]).val()+ "," ;
+       }
+/*
+
+var bCatch = $(Catch).is(":visible") && $(Catch).is(":checked")
+        var ab = $(abstract)$(abstract)
+        var lf = $(lfa)$(lfa)
+
+        var De = $(Depth).is(":visible") && $(Depth)
+        var ad = $(advisorycommittee).is(":visible") && $(advisorycommittee)
+        var ar = $(arial).is(":visible") && $(arial)
+        var as = $(assessment).is(":visible") && $(assessment)
+        var Ba = $(Bait).is(":visible") && $(Bait)
+        var By = $(Bycatch).is(":visible") && $(Bycatch)
+        var Ca = $(Catch).is(":visible") && $(Catch)
+        var Cs = $(CatchSummary).is(":visible") && $(CatchSummary)
+        var Ca = $(Catchability).is(":visible") && $(Catchability)
+        var Cl = $(Collectors).is(":visible") && $(Collectors)
+        var Co = $(Correspondance).is(":visible") && $(Correspondance)
+        var Cu = $(Cusk).is(":visible") && $(Cusk)
+
+        var Di = $(District).is(":visible") && $(District)
+        var Dv = $(Dive).is(":visible") && $(Dive)
+        var Dr = $(Dredge).is(":visible") && $(Dredge)
+        var Ef = $(Effort).is(":visible") && (Effort)
+        var En = $(Environmentalconditions).is(":visible") && $(Environmentalconditions)
+        var Fr = $(Framework).is(":visible") && $(Framework)
+        var Ge = $(Gearspecifications).is(":visible") && $(Gearspecifications)
+        var Hi = $(Historical).is(":visible") && $(Historical)
+        var Im = $(Images).is(":visible") && $(Images)
+        var In = $(Inoracle).is(":visible") && $(Inoracle)
+        var Id = $(Indigenous).is(":visible") && $(Indigenous)
+        var It = $(Interview).is(":visible") && $(Interview)
+        var Jo = $(Journal).is(":visible") && $(Journal)
+        var La = $(Larvae).is(":visible") && $(Larvae)
+        var Le = $(Lengthfrequency).is(":visible") && $(Lengthfrequency)
+        var Ma = $(Mandatorylogbook).is(":visible") && $(Mandatorylogbook)
+        var Mt = $(Maturity).is(":visible") && $(Maturity)
+        var Mi = $(Minutes).is(":visible") && $(Minutes)
+        var Mo = $(Morphometrics).is(":visible") && $(Morphometrics)
+        var MS = $(MSC).is(":visible") && $(MSC)
+        var Na = $(Name).is(":visible") && $(Name)
+        var Ne = $(Newspaper).is(":visible") && $(Newspaper)
+        var Of = $(Offshore).is(":visible") && $(Offshore)
+        var Pa = $(Pages).is(":visible") && $(Pages)
+        var Po = $(Port).is(":visible") && $(Port)
+        var Fi = $(Fishingpositions).is(":visible") && $(Fishingpositions)
+        var Po = $(Poster).is(":visible") && $(Poster)
+        var Pr = $(Price).is(":visible") && $(Price)
+        var Po = $(Proceedings).is(":visible") && $(Proceedings)
+        var Re = $(Review).is(":visible") && $(Review)
+        var Se = $(Setdetails).is(":visible") && $(Setdetails)
+        var Sl = $(Slipweights).is(":visible") && $(Slipweights)
+        var So = $(Soaktime).is(":visible") && $(Soaktime)
+        var Sp = $(Species).is(":visible") && $(Species)
+        var St = $(Statdistrict).is(":visible") && $(Statdistrict)
+        var Su = $(Substrate).is(":visible") && $(Substrate)
+        var Sc = $(Suction).is(":visible") && $(Suction)
+        var Te = $(Temperature).is(":visible") && $(Temperature)
+        var Tr = $(Trapbased).is(":visible") && $(Trapbased)
+        var Ta = $(Trawl).is(":visible") && $(Trawl)
+        var Up = $(Update).is(":visible") && $(Update)
+        var Vi = $(Video).is(":visible") && $(Video)
+        var Vn = $(Vnotch).is(":visible") && $(Vnotch)
+        var Vo = $(Voluntary).is(":visible") && $(Voluntary)
+        var Wo = $(Workshop).is(":visible") && $(Workshop)
+*/
+
+
+var strlist = "";
+var years = $("#myear").val();
+var proj = $("#datatype").val();
+var uri = "";
+
+      var cl = $("#sortable2").children().length;
+      for (i = 0; i < cl; i++) {
+       uri = sortable2.children[0].getAttribute('value');
+
+       var req = ocpu.rpc("r.write",{pro: proj, yea: years, ur: uri }, function(mes){
+		   if(mes == false){
+		    alert(mes);
+		  }
+		  else{
+        sortable2.removeChild(sortable2.children(0));
+      }
+    });
+
+      }
+
+});
+   $("#entPreview").click(function(){
+      var strlist = "";
+      var cl = $("#sortable2").children().length;
+      for (i = 0; i < cl; i++) {
+       if(i == cl-1){
+        strlist = strlist + sortable2.children[i].getAttribute('value');
+       }
+       else{
+         strlist = strlist + sortable2.children[i].getAttribute('value') + "#filesep";
+       }
+      }
+
+      var req = ocpu.rpc("r.getPreview",{flist: strlist }, function(mes){
+		  if(mes == false){
+		    alert(mes);
+		  }
+		  else{
+      }
+    });
+  });
+
+    $("#btnSubmit").click(function(){
+              var check = $('#rec').prop("checked");
+	var req = ocpu.rpc("r.choosedir",{sub: check}, function(mes){
+		if(mes == false){
+		  alert(mes);
+		}
+		else{
+
+		  var obj = JSON.parse(mes);
+      var strmess = String(obj["files"]);
+      var omit = obj["omit"];
+      var arrmess = strmess.split(',');
+      $('#directory').text(arrmess[0]);
+      var i;
+      var x;
+      for (i = 1; i < arrmess.length; i++) {
+        var arrstr = arrmess[i];
+        var ass = arrstr.replace(/%2C/g, ",");
+        x = $("<div class='ui-state-highlight' value = '"+ass+"'>'"+ass+"'<span class='handle'></span></div>");
+        $("#sortable1").append(x);
+      }
+      $("#sortable1").sortable('refresh');
+		}
+	});
+	req.fail(function(){
+		alert("R returned an error: " + req.responseText);
+	});
+});
+
+});
+  </script>
+
+
+</head>
+<body>
+
+<div id="tabs"  style = "font-size: small;">
+  <ul>
+    <li><a href="#enter">Archive Resource</a></li>
+    <li><a href="#retrieve">Retrieve Resource</a></li>
+  </ul>
+
+  <div id="enter">
+
+
+    <div class="container" style = "width: 100%; display:inline-block;">
+
+
+    <fieldset style="width: 98%;">
+    <legend>Files:</legend>
+    <label id="directory">directory</label>
+    <input id = "btnSubmit" type="submit" class="ui-button-alpha" value="Choose Directory"/>
+
+    <input type="checkbox" id="rec" name=rec unchecked >
+    <label for="rec">recursive?</label>
+    <p>Drag files to the right side to enter</p>
+
+<ul id="sortable1" style="width: 40%; height: 200px; overflow-y: scroll;" class ="connectedSortable"></ul>
+<ul id="sortable2" style="width: 40%; height: 200px; overflow-y: scroll;" class="connectedSortable"></ul>
+
+<input id = "entPreview" type="submit" class="ui-button-alpha" value="Preview Data"/>
+
+</fieldset>
+
+</div>
+</div>
+</div>
+<div id="retrieve">
+
+</div>
+
+ <div class="container" style = "width: 100%; display:inline-block;">
+<div class="row">
+  <div class="column left">
+  <div id="dragdatatype2">
+  <fieldset id = "feilddatatype">
+    <legend> Data Type: </legend>
+    <label for="survey">Survey</label>
+    <input type="radio" name="datatype" id="survey">
+    <label for="document">Document</label>
+    <input type="radio" name="datatype" id="document">
+    <label for="manuscript">Manuscript</label>
+    <input type="radio" name="datatype" id="manuscript">
+    <label for="landingsrecords">Landings Records</label>
+    <input type="radio" name="datatype" id="landingsrecords">
+    <label for="portsample">Port Sample</label>
+    <input type="radio" name="datatype" id="portsample">
+    <label for="atseasample">At Sea Sample</label>
+    <input type="radio" name="datatype" id="atseasample">
+     <label for="tagging">Tagging</label>
+    <input type="radio" name="datatype" id="tagging">
+    <label for="other">Other</label>
+    <input type="radio" name="datatype" id="other">
+  </fieldset>
+<br>
+  <fieldset id = "optsel">
+  <legend>Options:</legend>
+<div style = "display: inline-block">
+<label for="Name">Document Name</label>
+   <input type="checkbox" name="Name" id="Name">
+   <input type="text" name="namet" id="namet"/>
+   </div>
+<div style = "display: inline-block">
+   <label for="abstract">Abstract</label>
+   <input type="checkbox" name="abstract" id="abstract">
+   <input type="text" name="abstractt" id="abstractt"/>
+</div>
+<div style = "display: inline-block">
+   <label for="Pages">Page(s)</label>
+   <input type="checkbox" name="Pages" id="Pages">
+   <input type="text" name="Pagest" id="Pagest"/>
+</div>
+<div style = "display: inline-block">
+   <label for="lfa">LFA</label>
+   <input type="checkbox" name="lfa" id="lfa">
+   <div id = "lfatdiv" style = "display: inline-block">
+        <select id = lfat style="width:200px; font-size: .2em;" class="js-example-theme-multiple" name="lfat[]" multiple="multiple">
+  </select>
+  </div>
+</div>
+<div style = "display: inline-block">
+   <label for="District">District</label>
+   <input type="checkbox" name="District" id="District">
+   <div id = "Districttdiv" style = "display: inline-block">
+        <select id = Districtt style="width:200px; font-size: .2em;" class="js-example-theme-multiple" name="Districtt[]" multiple="multiple">
+  </select>
+  </div>
+</div>
+<div style = "display: inline-block">
+   <label for="Statdistrict">Stat District</label>
+   <input type="checkbox" name="Statdistrict" id="Statdistrict">
+   <div id = "Statdistricttdiv" style = "display: inline-block">
+        <select id = Statdistrictt style="width:200px; font-size: .2em;" class="js-example-theme-multiple" name="Statdistrictt[]" multiple="multiple">
+  </select>
+  </div>
+</div>
+<div style = "display: inline-block">
+   <label for="Species">Species</label>
+   <input type="checkbox" name="Species" id="Species">
+   <div id = "Speciestdiv" style = "display: inline-block">
+        <select id = Speciest style="width:200px; font-size: .2em;" class="js-example-theme-multiple" name="Speciest[]" multiple="multiple">
+  </select>
+  </div>
+</div>
+<div style = "display: inline-block">
+   <label for="Port">Port</label>
+   <input type="checkbox" name="Port" id="Port">
+   <div id = "Porttdiv" style = "display: inline-block">
+        <select id = Portt style="width:200px; font-size: .2em;" class="js-example-theme-multiple" name="Portt[]" multiple="multiple">
+  </select>
+  </div>
+</div>
+<br>
+   <label class = "check2" for="advisorycommittee">Advisory Committee</label>
+   <input type="checkbox" name="advisorycommittee" id="advisorycommittee">
+
+
+   <label class = "check2" for="aerial">Aerial</label>
+   <input type="checkbox" name="aerial" id="aerial">
+
+
+   <label class = "check2" for="assessment">Assessment</label>
+   <input type="checkbox" name="assessment" id="assessment">
+
+
+<label class = "check2" for="Bait">Bait</label>
+   <input type="checkbox" name="Bait" id="Bait">
+
+<label class = "check2" for="Bycatch">Bycatch</label>
+   <input type="checkbox" name="Bycatch" id="Bycatch">
+
+<label class = "check2" for="Catch">Catch</label>
+   <input type="checkbox" name="Catch" id="Catch">
+
+<label class = "check2" for="CatchSummary">Catch Summary</label>
+   <input type="checkbox" name="CatchSummary" id="CatchSummary">
+
+<label class = "check2" for="Catchability">Catchability</label>
+   <input type="checkbox" name="Catchability" id="Catchability">
+
+<label class = "check2" for="Collectors">Collectors</label>
+   <input type="checkbox" name="Collectors" id="Collectors">
+
+<label class = "check2" for="Correspondance">Correspondance</label>
+   <input type="checkbox" name="Correspondance" id="Correspondance">
+
+<label class = "check2" for="Cusk">Cusk</label>
+   <input type="checkbox" name="Cusk" id="Cusk">
+
+<label class = "check2" for="Depth">Depth</label>
+   <input type="checkbox" name="Depth" id="Depth">
+
+
+
+<label class = "check2" for="Dive">Dive</label>
+   <input type="checkbox" name="Dive" id="Dive">
+
+<label class = "check2" for="Dredge">Dredge</label>
+   <input type="checkbox" name="Dredge" id="Dredge">
+
+<label class = "check2" for="Effort">Effort</label>
+   <input type="checkbox" name="Effort" id="Effort">
+
+<label class = "check2" for="Environmentalconditions">Environmental Conditions</label>
+   <input type="checkbox" name="Environmentalconditions" id="Environmentalconditions">
+
+<label class = "check2" for="Framework">Framework</label>
+   <input type="checkbox" name="Framework" id="Framework">
+
+<label class = "check2" for="Gearspecifications">Gear Specifications</label>
+   <input type="checkbox" name="Gearspecifications" id="Gearspecifications">
+
+<label class = "check2" for="Historical">Historical (Pre 1970)</label>
+   <input type="checkbox" name="Historical" id="Historical">
+
+<label class = "check2" for="Images">Images</label>
+   <input type="checkbox" name="Images" id="Images">
+
+<label class = "check2" for="Inoracle">In Oracle</label>
+   <input type="checkbox" name="Inoracle" id="Inoracle">
+
+<label class = "check2" for="Indigenous">Indigenous / First Nations</label>
+   <input type="checkbox" name="Indigenous" id="Indigenous">
+
+<label class = "check2" for="Interview">Interview</label>
+   <input type="checkbox" name="Interview" id="Interview">
+
+<label class = "check2" for="Journal">Journal</label>
+   <input type="checkbox" name="Journal" id="Journal">
+
+<label class = "check2" for="Larvae">Larvae</label>
+   <input type="checkbox" name="Larvae" id="Larvae">
+
+<label class = "check2" for="Lengthfrequency">Length Frequency</label>
+   <input type="checkbox" name="Lengthfrequency" id="Lengthfrequency">
+
+<label class = "check2" for="Mandatorylogbook">Mandatory Logbook</label>
+   <input type="checkbox" name="Mandatorylogbook" id="Mandatorylogbook">
+
+<label class = "check2" for="Maturity">Maturity</label>
+   <input type="checkbox" name="Maturity" id="Maturity">
+
+<label class = "check2" for="Minutes">Minutes</label>
+   <input type="checkbox" name="Minutes" id="Minutes">
+
+<label class = "check2" for="Morphometrics">Morphometrics</label>
+   <input type="checkbox" name="Morphometrics" id="Morphometrics">
+
+<label class = "check2" for="MSC">MSC</label>
+   <input type="checkbox" name="MSC" id="MSC">
+
+<label class = "check2" for="Newspaper">Newspaper</label>
+   <input type="checkbox" name="Newspaper" id="Newspaper">
+
+<label class = "check2" for="Offshore">Offshore</label>
+   <input type="checkbox" name="Offshore" id="Offshore">
+
+
+<label class = "check2" for="Fishingpositions">Fishing Positions</label>
+   <input type="checkbox" name="Fishingpositions" id="Fishingpositions">
+
+<label class = "check2" for="Poster">Poster</label>
+   <input type="checkbox" name="Poster" id="Poster">
+
+<label class = "check2" for="Price">Price</label>
+   <input type="checkbox" name="Price" id="Price">
+
+<label class = "check2" for="Proceedings">Proceedings</label>
+   <input type="checkbox" name="Proceedings" id="Proceedings">
+
+<label class = "check2" for="Review">Review</label>
+   <input type="checkbox" name="Review" id="Review">
+
+<label class = "check2" for="Setdetails">Set Details / Summary</label>
+   <input type="checkbox" name="Setdetails" id="Setdetails">
+
+<label class = "check2" for="Slipweights">Slip Weights</label>
+   <input type="checkbox" name="Slipweights" id="Slipweights">
+
+<label class = "check2" for="Soaktime">Soak Time</label>
+   <input type="checkbox" name="Soaktime" id="Soaktime">
+
+
+<label class = "check2" for="Substrate">Substrate</label>
+   <input type="checkbox" name="Substrate" id="Substrate">
+
+<label class = "check2" for="Suction">Suction</label>
+   <input type="checkbox" name="Suction" id="Suction">
+
+<label class = "check2" for="Temperature">Temperature</label>
+   <input type="checkbox" name="Temperature" id="Temperature">
+
+<label class = "check2" for="Trapbased">Trap-based Survey</label>
+   <input type="checkbox" name="Trapbased" id="Trapbased">
+
+<label class = "check2" for="Thesis">Thesis</label>
+   <input type="checkbox" name="Thesis" id="Thesis">
+
+<label class = "check2" for="Trawl">Trawl</label>
+   <input type="checkbox" name="Trawl" id="Trawl">
+
+<label class = "check2" for="Update">Update</label>
+   <input type="checkbox" name="Update" id="Update">
+
+<label class = "check2" for="Video">Video</label>
+   <input type="checkbox" name="Video" id="Video">
+
+<label class = "check2" for="Vnotch">V-notch</label>
+   <input type="checkbox" name="Vnotch" id="Vnotch">
+
+<label class = "check2" for="Voluntarylogbook">Voluntary Logbook</label>
+   <input type="checkbox" name="Voluntarylogbook" id="Voluntarylogbook">
+
+<label class = "check2" for="Workshop">Workshop / Seminar</label>
+   <input type="checkbox" name="Workshop" id="Workshop">
+
+
+</fieldset>
+
+ </div>
+</div>
+ <div class="column right">
+    <div id="dragdatatype">
+  <fieldset id = "namesel">
+  <legend>Name(s):</legend>
+<div class="field_wrapper">
+    <div>
+   <input type="text" name="authorfirst1t" placeholder="first" id="authorfirst1t" value=""/><input type="text" name="authorlast1t[]" placeholder="last" id="authorlast1t" value=""/><a href="javascript:void(0);" class="add_button" title="Add field"><img src="add.png" style = "width:20px; position: absolute; margin-left: -12px;"/></a>
+    </div>
+</div>
+
+
+</fieldset>
+<br>
+  <fieldset id = "yersel">
+  <legend>Year:</legend>
+      <select id = myear style="font-size: .2em;" class="js-example-theme-multiple" name="myear[]" multiple="multiple">
+  <option value="2025">2025</option>
+  <option value="2024">2024</option>
+  <option value="2023">2023</option>
+  <option value="2022">2022</option>
+  <option value="2021">2021</option>
+  <option value="2020">2020</option>
+
+  <option value="2019">2019</option>
+  <option value="2018">2018</option>
+  <option value="2017">2017</option>
+  <option value="2016">2016</option>
+  <option value="2015">2015</option>
+  <option value="2014">2014</option>
+  <option value="2013">2013</option>
+  <option value="2012">2012</option>
+  <option value="2011">2011</option>
+
+  <option value="2010">2010</option>
+  <option value="2009">2009</option>
+  <option value="2008">2008</option>
+  <option value="2007">2007</option>
+  <option value="2006">2006</option>
+  <option value="2005">2005</option>
+  <option value="2004">2004</option>
+  <option value="2003">2003</option>
+  <option value="2002">2002</option>
+  <option value="2001">2001</option>
+  <option value="2000">2000</option>
+
+  <option value="1999">1999</option>
+  <option value="1998">1998</option>
+  <option value="1997">1997</option>
+  <option value="1996">1996</option>
+  <option value="1995">1995</option>
+  <option value="1994">1994</option>
+  <option value="1993">1993</option>
+  <option value="1992">1992</option>
+  <option value="1991">1991</option>
+  <option value="1990">1990</option>
+
+  <option value="1989">1989</option>
+  <option value="1988">1988</option>
+  <option value="1987">1987</option>
+  <option value="1986">1986</option>
+  <option value="1985">1985</option>
+  <option value="1984">1984</option>
+  <option value="1983">1983</option>
+  <option value="1982">1982</option>
+  <option value="1981">1981</option>
+  <option value="1980">1980</option>
+
+  <option value="1979">1979</option>
+  <option value="1978">1978</option>
+  <option value="1977">1977</option>
+  <option value="1976">1976</option>
+  <option value="1975">1975</option>
+  <option value="1974">1974</option>
+  <option value="1973">1973</option>
+  <option value="1972">1972</option>
+  <option value="1971">1971</option>
+  <option value="1970">1970</option>
+
+  <option value="1969">1969</option>
+  <option value="1968">1968</option>
+  <option value="1967">1967</option>
+  <option value="1966">1966</option>
+  <option value="1965">1965</option>
+  <option value="1964">1964</option>
+  <option value="1963">1963</option>
+  <option value="1962">1962</option>
+  <option value="1961">1961</option>
+  <option value="1960">1960</option>
+
+  <option value="1959">1959</option>
+  <option value="1958">1958</option>
+  <option value="1957">1957</option>
+  <option value="1956">1956</option>
+  <option value="1955">1955</option>
+  <option value="1954">1954</option>
+  <option value="1953">1953</option>
+  <option value="1952">1952</option>
+  <option value="1951">1951</option>
+  <option value="1950">1950</option>
+  <option value="1940s">1940s</option>
+  <option value="1930s">1930s</option>
+  <option value="1920s">1920s</option>
+  <option value="1910s">1910s</option>
+  <option value="pre1900">pre 1900</option>
+
+  </select>
+
+
+</fieldset>
+</div>
+ </div>
+</div>
+
+
+
+<br>
+<input id = "entSubmit" class="ui-button-alpha" type="submit" value="Enter Data"/>
+<input id = "entQuery" class="ui-button-alpha" type="submit" value="Query Data"/>
+
+</div>
+
+<script>
+$( "#abstract" ).click(function() { if($( "#abstract" ).is(":checked")){
+  $('#abstractt').show();} else{ $('#abstractt').hide();}
+});
+$( "#Pages" ).click(function() { if($( "#Pages" ).is(":checked")){
+  $('#Pagest').show();} else{ $('#Pagest').hide();}
+});
+$( "#Name" ).click(function() { if($( "#Name" ).is(":checked")){
+  $('#namet').show();} else{ $('#namet').hide();}
+});
+$( "#lfa" ).click(function() { if($( "#lfa" ).is(":checked")){
+  $('#lfatdiv').show();} else{ $('#lfatdiv').hide();}
+});
+$( "#lfa" ).click(function() { if($( "#lfa" ).is(":checked")){
+  $('#lfatdiv').show();} else{ $('#lfatdiv').hide();}
+});
+$( "#District" ).click(function() { if($( "#District" ).is(":checked")){
+  $('#Districttdiv').show();} else{ $('#Districttdiv').hide();}
+});
+$( "#Statdistrict" ).click(function() { if($( "#Statdistrict" ).is(":checked")){
+  $('#Statdistricttdiv').show();} else{ $('#Statdistricttdiv').hide();}
+});
+
+$( "#Species" ).click(function() { if($( "#Species" ).is(":checked")){
+  $('#Speciestdiv').show();} else{ $('#Speciestdiv').hide();}
+});
+
+$( "#Port" ).click(function() { if($( "#Port" ).is(":checked")){
+  $('#Porttdiv').show();} else{ $('#Porttdiv').hide();}
+});
+
+$( "[name='datatype']").on( "change", filteropts );
+function filteropts( e ) {
+      var target = $( e.target );
+      if(target[ 0 ].id == "survey"){
+        $("#abstract, label[for=abstract]").show();
+        $("#aerial, label[for=aerial]").show();
+        $("#Bait, label[for=Bait]").show();
+        $("#Bycatch, label[for=Bycatch]").show();
+        $("#Catch, label[for=Catch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("#Catchability, label[for=Catchability]").show();
+        $("#Cusk, label[for=Cusk]").show();
+        $("#Depth, label[for=Depth]").show();
+        $("#lfa, label[for=lfa]").show();
+
+        $("#advisorycommittee, label[for=advisorycommittee]").hide();
+        $("#assessment, label[for=assessment]").hide();
+        $("#Correspondance, label[for=Correspondance]").hide();
+        $("#Collectors, label[for=Collectors]").hide();
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").show();
+        $("#Dredge, label[for=Dredge]").show();
+        $("#Effort, label[for=Effort]").show();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").hide();
+        $("#Gearspecifications, label[for=Gearspecifications]").show();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").hide();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").hide();
+        $("#Interview, label[for=Interview]").show();
+        $("#Journal, label[for=Journal]").hide();
+        $("#Larvae, label[for=Larvae]").show();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").show();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").hide();
+        $("#Morphometrics, label[for=Morphometrics]").show();
+        $("#MSC, label[for=MSC]").hide();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").hide();
+        $("#Port, label[for=Port]").hide();
+        $("#Fishingpositions, label[for=Fishingpositions]").show();
+        $("#Poster, label[for=Poster]").hide();
+        $("#Price, label[for=Price]").hide();
+        $("#Proceedings, label[for=Proceedings]").hide();
+        $("#Review, label[for=Review]").hide();
+        $("#Setdetails, label[for=Setdetails]").show();
+        $("#Slipweights, label[for=Slipweights]").hide();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").show();
+        $("#Suction, label[for=Suction]").show();
+        $("#Temperature, label[for=Temperature]").show();
+        $("#Trapbased, label[for=Trapbased]").show();
+        $("#Trawl, label[for=Trawl]").show();
+        $("#Update, label[for=Update]").hide();
+        $("#Video, label[for=Video]").show();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").hide();
+        $("#Workshop, label[for=Workshop]").hide();
+
+      }
+      if(target[ 0 ].id == "document"){
+        $("#abstract, label[for=abstract]").show();
+        $("#advisorycommittee, label[for=advisorycommittee]").show();
+        $("#assessment, label[for=assessment]").show();
+        $("#Bait, label[for=Bait]").show();
+        $("#Bycatch, label[for=Bycatch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("#Catchability, label[for=Catchability]").show();
+        $("#Collectors, label[for=Collectors]").show();
+        $("#lfa, label[for=lfa]").show();
+        $("#Correspondance, label[for=Correspondance]").show();
+        $("#Cusk, label[for=Cusk]").show();
+
+        $("#arialt, #arial, label[for=arial]").hide();
+        $("#Catch, label[for=Catch]").hide();
+        $("#Depth, label[for=Depth]").hide();
+
+
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").hide();
+        $("#Dredge, label[for=Dredge]").hide();
+        $("#Effort, label[for=Effort]").hide();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").show();
+        $("#Gearspecifications, label[for=Gearspecifications]").hide();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").show();
+        $("#Inoracle, label[for=Inoracle]").hide();
+        $("#Indigenous, label[for=Indigenous]").show();
+        $("#Interview, label[for=Interview]").hide();
+        $("#Journal, label[for=Journal]").hide();
+        $("#Larvae, label[for=Larvae]").show();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").hide();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").show();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").show();
+        $("#Morphometrics, label[for=Morphometrics]").hide();
+        $("#MSC, label[for=MSC]").show();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").show();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").hide();
+        $("#Port, label[for=Port]").hide();
+        $("#Fishingpositions, label[for=Fishingpositions]").hide();
+        $("#Poster, label[for=Poster]").show();
+        $("#Price, label[for=Price]").show();
+        $("#Proceedings, label[for=Proceedings]").show();
+        $("#Review, label[for=Review]").show();
+        $("#Setdetails, label[for=Setdetails]").hide();
+        $("#Slipweights, label[for=Slipweights]").show();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").show();
+        $("#Suction, label[for=Suction]").hide();
+        $("#Temperature, label[for=Temperature]").hide();
+        $("#Trapbased, label[for=Trapbased]").hide();
+        $("#Trawl, label[for=Trawl]").hide();
+        $("#Update, label[for=Update]").show();
+        $("#Video, label[for=Video]").show();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").show();
+        $("#Workshop, label[for=Workshop]").show();
+
+
+      }
+      if(target[ 0 ].id == "manuscript"){
+        $("#abstract, label[for=abstract]").show();
+        $("#Bycatch, label[for=Bycatch]").show();
+        $("#Catchability, label[for=Catchability]").show();
+        $("#Collectors, label[for=Collectors]").show();
+        $("#Depth, label[for=Depth]").show();
+        $("#lfa, label[for=lfa]").show();
+
+        $("#arialt, #arial, label[for=arial]").hide();
+        $("#advisorycommittee, label[for=advisorycommittee]").hide();
+        $("#assessment, label[for=assessment]").hide();
+        $("#Bait, label[for=Bait]").hide();
+        $("#Catch, label[for=Catch]").hide();
+        $("#CatchSummary, label[forCatchSummary]").hide();
+        $("#Correspondance, label[for=Correspondance]").hide();
+        $("#Cusk, label[for=Cusk]").hide();
+
+
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").show();
+        $("#Dredge, label[for=Dredge]").show();
+        $("#Effort, label[for=Effort]").hide();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").show();
+        $("#Gearspecifications, label[for=Gearspecifications]").hide();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").hide();
+        $("#Inoracle, label[for=Inoracle]").hide();
+        $("#Indigenous, label[for=Indigenous]").hide();
+        $("#Interview, label[for=Interview]").hide();
+        $("#Journal, label[for=Journal]").show();
+        $("#Larvae, label[for=Larvae]").show();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").hide();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").hide();
+        $("#Morphometrics, label[for=Morphometrics]").hide();
+        $("#MSC, label[for=MSC]").show();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").show();
+        $("#Port, label[for=Port]").hide();
+        $("#Fishingpositions, label[for=Fishingpositions]").hide();
+        $("#Poster, label[for=Poster]").hide();
+        $("#Price, label[for=Price]").hide();
+        $("#Proceedings, label[for=Proceedings]").hide();
+        $("#Review, label[for=Review]").show();
+        $("#Setdetails, label[for=Setdetails]").hide();
+        $("#Slipweights, label[for=Slipweights]").hide();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").hide();
+        $("#Substrate, label[for=Substrate]").hide();
+        $("#Suction, label[for=Suction]").show();
+        $("#Temperature, label[for=Temperature]").show();
+        $("#Trapbased, label[for=Trapbased]").hide();
+        $("#Trawl, label[for=Trawl]").hide();
+        $("#Update, label[for=Update]").show();
+        $("#Video, label[for=Video]").hide();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").hide();
+        $("#Workshop, label[for=Workshop]").hide();
+
+      }
+      if(target[ 0 ].id == "landingsrecords"){
+        $("#abstract, label[for=abstract]").show();
+        $("#lfa, label[for=lfa]").show();
+        $("#Catch, label[for=Catch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("advisorycommittee, label[for=advisorycommittee]").hide();
+        $("#arialt, arial, label[for=arial]").hide();
+        $("#assessment, label[for=assessment]").hide();
+        $("#Bait, label[for=Bait]").hide();
+        $("#Bycatch, label[for=Bycatch]").hide();
+        $("#Catchability, label[for=Catchability]").hide();
+        $("#Collectors, label[for=Collectors]").hide();
+        $("#Correspondance, label[for=Correspondance]").hide();
+        $("#Cusk, label[for=Cusk]").hide();
+        $("#Depth, label[for=Depth]").hide();
+
+
+
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").hide();
+        $("#Dredge, label[for=Dredge]").hide();
+        $("#Effort, label[for=Effort]").show();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").hide();
+        $("#Framework, label[for=Framework]").hide();
+        $("#Gearspecifications, label[for=Gearspecifications]").hide();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").hide();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").show();
+        $("#Interview, label[for=Interview]").show();
+        $("#Journal, label[for=Journal]").hide();
+        $("#Larvae, label[for=Larvae]").hide();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").hide();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
+        $("#Maturity, label[for=Maturity]").hide();
+        $("#Minutes, label[for=Minutes]").hide();
+        $("#Morphometrics, label[for=Morphometrics]").hide();
+        $("#MSC, label[for=MSC]").hide();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").hide();
+        $("#Port, label[for=Port]").show();
+        $("#Fishingpositions, label[for=Fishingpositions]").hide();
+        $("#Poster, label[for=Poster]").hide();
+        $("#Price, label[for=Price]").show();
+        $("#Proceedings, label[for=Proceedings]").hide();
+        $("#Review, label[for=Review]").hide();
+        $("#Setdetails, label[for=Setdetails]").hide();
+        $("#Slipweights, label[for=Slipweights]").show();
+        $("#Soaktime, label[for=Soaktime]").hide();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").hide();
+        $("#Suction, label[for=Suction]").hide();
+        $("#Temperature, label[for=Temperature]").hide();
+        $("#Trapbased, label[for=Trapbased]").hide();
+        $("#Trawl, label[for=Trawl]").hide();
+        $("#Update, label[for=Update]").hide();
+        $("#Video, label[for=Video]").hide();
+        $("#Vnotch, label[for=Vnotch]").hide();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").hide();
+        $("#Workshop, label[for=Workshop]").hide();
+
+      }
+      if(target[ 0 ].id == "portsample"){
+        $("#abstract, label[for=abstract]").show();
+        $("#lfa, label[for=lfa]").show();
+        $("#Catch, label[for=Catch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("advisorycommittee, label[for=advisorycommittee]").hide();
+        $("#arialt, arial, label[for=arial]").hide();
+        $("#assessment, label[for=assessment]").hide();
+        $("#Bait, label[for=Bait]").hide();
+        $("#Bycatch, label[for=Bycatch]").hide();
+        $("#Catchability, label[for=Catchability]").hide();
+        $("#Collectors, label[for=Collectors]").hide();
+        $("#Correspondance, label[for=Correspondance]").hide();
+        $("#Cusk, label[for=Cusk]").hide();
+        $("#Depth, label[for=Depth]").hide();
+
+
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").hide();
+        $("#Dredge, label[for=Dredge]").hide();
+        $("#Effort, label[for=Effort]").show();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").hide();
+        $("#Framework, label[for=Framework]").hide();
+        $("#Gearspecifications, label[for=Gearspecifications]").show();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").hide();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").show();
+        $("#Interview, label[for=Interview]").hide();
+        $("#Journal, label[for=Journal]").hide();
+        $("#Larvae, label[for=Larvae]").hide();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").show();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
+        $("#Maturity, label[for=Maturity]").hide();
+        $("#Minutes, label[for=Minutes]").hide();
+        $("#Morphometrics, label[for=Morphometrics]").hide();
+        $("#MSC, label[for=MSC]").hide();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").hide();
+        $("#Port, label[for=Port]").show();
+        $("#Fishingpositions, label[for=Fishingpositions]").hide();
+        $("#Poster, label[for=Poster]").hide();
+        $("#Price, label[for=Price]").show();
+        $("#Proceedings, label[for=Proceedings]").hide();
+        $("#Review, label[for=Review]").hide();
+        $("#Setdetails, label[for=Setdetails]").hide();
+        $("#Slipweights, label[for=Slipweights]").show();
+        $("#Soaktime, label[for=Soaktime]").hide();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").hide();
+        $("#Suction, label[for=Suction]").hide();
+        $("#Temperature, label[for=Temperature]").hide();
+        $("#Trapbased, label[for=Trapbased]").hide();
+        $("#Trawl, label[for=Trawl]").hide();
+        $("#Update, label[for=Update]").hide();
+        $("#Video, label[for=Video]").hide();
+        $("#Vnotch, label[for=Vnotch]").hide();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").hide();
+        $("#Workshop, label[for=Workshop]").hide();
+
+      }
+      if(target[ 0 ].id == "atseasample"){
+        $("#abstract, label[for=abstract]").show();
+        $("#lfa, label[for=lfa]").show();
+        $("#Bycatch, label[for=Bycatch]").show();
+        $("#Catch, label[for=Catch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("#Cusk, label[for=Cusk]").show();
+        $("#Depth, label[for=Depth]").show();
+        $("advisorycommittee, label[for=advisorycommittee]").hide();
+        $("#arialt, arial, label[for=arial]").hide();
+        $("#assessment, label[for=assessment]").hide();
+        $("#Bait, label[for=Bait]").hide();
+
+        $("#Catchability, label[for=Catchability]").hide();
+        $("#Collectors, label[for=Collectors]").hide();
+        $("#Correspondance, label[for=Correspondance]").hide();
+
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").hide();
+        $("#Dredge, label[for=Dredge]").show();
+        $("#Effort, label[for=Effort]").show();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").hide();
+        $("#Gearspecifications, label[for=Gearspecifications]").show();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").hide();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").show();
+        $("#Interview, label[for=Interview]").hide();
+        $("#Journal, label[for=Journal]").hide();
+        $("#Larvae, label[for=Larvae]").hide();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").show();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").hide();
+        $("#Morphometrics, label[for=Morphometrics]").show();
+        $("#MSC, label[for=MSC]").hide();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").hide();
+        $("#Port, label[for=Port]").hide();
+        $("#Fishingpositions, label[for=Fishingpositions]").show();
+        $("#Poster, label[for=Poster]").hide();
+        $("#Price, label[for=Price]").hide();
+        $("#Proceedings, label[for=Proceedings]").hide();
+        $("#Review, label[for=Review]").hide();
+        $("#Setdetails, label[for=Setdetails]").show();
+        $("#Slipweights, label[for=Slipweights]").hide();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").show();
+        $("#Suction, label[for=Suction]").hide();
+        $("#Temperature, label[for=Temperature]").show();
+        $("#Trapbased, label[for=Trapbased]").hide();
+        $("#Trawl, label[for=Trawl]").hide();
+        $("#Update, label[for=Update]").hide();
+        $("#Video, label[for=Video]").hide();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").hide();
+        $("#Workshop, label[for=Workshop]").hide();
+
+      }
+      if(target[ 0 ].id == "tagging"){
+        $("#abstract, label[for=abstract]").show();
+        $("#lfa, label[for=lfa]").show();
+
+        $("#Depth, label[for=Depth]").show();
+        $("advisorycommittee, label[for=advisorycommittee]").hide();
+        $("#arialt, arial, label[for=arial]").hide();
+        $("#assessment, label[for=assessment]").hide();
+        $("#Bait, label[for=Bait]").hide();
+        $("#Bycatch, label[for=Bycatch]").hide();
+        $("#Catch, label[for=Catch]").hide();
+        $("#CatchSummary, label[forCatchSummary]").hide();
+        $("#Catchability, label[for=Catchability]").hide();
+        $("#Collectors, label[for=Collectors]").hide();
+        $("#Correspondance, label[for=Correspondance]").hide();
+        $("#Cusk, label[for=Cusk]").hide();
+
+
+ $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").hide();
+        $("#Dredge, label[for=Dredge]").hide();
+        $("#Effort, label[for=Effort]").hide();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").hide();
+        $("#Gearspecifications, label[for=Gearspecifications]").show();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").show();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").hide();
+        $("#Interview, label[for=Interview]").hide();
+        $("#Journal, label[for=Journal]").hide();
+        $("#Larvae, label[for=Larvae]").hide();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").hide();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").hide();
+        $("#Morphometrics, label[for=Morphometrics]").show();
+        $("#MSC, label[for=MSC]").hide();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").hide();
+        $("#Port, label[for=Port]").hide();
+        $("#Fishingpositions, label[for=Fishingpositions]").show();
+        $("#Poster, label[for=Poster]").hide();
+        $("#Price, label[for=Price]").hide();
+        $("#Proceedings, label[for=Proceedings]").hide();
+        $("#Review, label[for=Review]").hide();
+        $("#Setdetails, label[for=Setdetails]").show();
+        $("#Slipweights, label[for=Slipweights]").hide();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").hide();
+        $("#Substrate, label[for=Substrate]").show();
+        $("#Suction, label[for=Suction]").hide();
+        $("#Temperature, label[for=Temperature]").show();
+        $("#Trapbased, label[for=Trapbased]").hide();
+        $("#Trawl, label[for=Trawl]").hide();
+        $("#Update, label[for=Update]").hide();
+        $("#Video, label[for=Video]").hide();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").hide();
+        $("#Workshop, label[for=Workshop]").hide();
+
+      }
+if(target[ 0 ].id == "other"){
+        $("#abstract, label[for=abstract]").show();
+        $("#lfa, label[for=lfa]").show();
+
+        $("#Depth, label[for=Depth]").show();
+        $("advisorycommittee, label[for=advisorycommittee]").show();
+        $("#arialt, arial, label[for=arial]").show();
+        $("#assessment, label[for=assessment]").show();
+        $("#Bait, label[for=Bait]").show();
+        $("#Bycatch, label[for=Bycatch]").show();
+        $("#Catch, label[for=Catch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("#Catchability, label[for=Catchability]").show();
+        $("#Collectors, label[for=Collectors]").show();
+        $("#Correspondance, label[for=Correspondance]").show();
+        $("#Cusk, label[for=Cusk]").show();
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").show();
+        $("#Dredge, label[for=Dredge]").show();
+        $("#Effort, label[for=Effort]").show();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").show();
+        $("#Gearspecifications, label[for=Gearspecifications]").show();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").show();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").show();
+        $("#Interview, label[for=Interview]").show();
+        $("#Journal, label[for=Journal]").show();
+        $("#Larvae, label[for=Larvae]").show();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").show();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").show();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").show();
+        $("#Morphometrics, label[for=Morphometrics]").show();
+        $("#MSC, label[for=MSC]").show();
+        $("#Name, label[for=Name]").show();
+        $("#Newspaper, label[for=Newspaper]").show();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").show();
+        $("#Port, label[for=Port]").show();
+        $("#Fishingpositions, label[for=Fishingpositions]").show();
+        $("#Poster, label[for=Poster]").show();
+        $("#Price, label[for=Price]").show();
+        $("#Proceedings, label[for=Proceedings]").show();
+        $("#Review, label[for=Review]").show();
+        $("#Setdetails, label[for=Setdetails]").show();
+        $("#Slipweights, label[for=Slipweights]").show();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").show();
+        $("#Suction, label[for=Suction]").show();
+        $("#Temperature, label[for=Temperature]").show();
+        $("#Trapbased, label[for=Trapbased]").show();
+        $("#Trawl, label[for=Trawl]").show();
+        $("#Update, label[for=Update]").show();
+        $("#Video, label[for=Video]").show();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntary, label[for=Voluntary]").show();
+        $("#Workshop, label[for=Workshop]").show();
+
+      }
+
+}
+
+
+</script>
+</body>
+</html>
