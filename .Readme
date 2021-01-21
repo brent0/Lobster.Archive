@@ -1,0 +1,15 @@
+Packages to install:
+
+opencpu, ROracle
+jsonlite  tcltk
+First Run:
+
+Be sure to allow program when prompted on the first run!!!!
+
+ROracle install help:
+
+run cmd as admin
+cd /d c:\
+icacls "R" /grant username:(OI)(CI)F /T
+
+copy ociver.h from oracle include to R/include

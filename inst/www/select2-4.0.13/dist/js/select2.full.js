@@ -2188,7 +2188,7 @@ S2.define('select2/selection/search',[
   };
 
   Search.prototype.resizeSearch = function () {
-    this.$search.css('width', '25px');
+    this.$search.css('width', 'none');
 
     var width = '';
 
@@ -2201,6 +2201,7 @@ S2.define('select2/selection/search',[
     }
 
     this.$search.css('width', width);
+	this.$search.css('background-color', 'transparent');
   };
 
   return Search;
