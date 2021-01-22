@@ -62,7 +62,12 @@
     user-select: none;
     overflow: visible;
 }
-
+.ui-visual-focus {
+	box-shadow: 0 0 2px .3px rgb(94, 158, 214);
+}
+.ui-widget .ui-widget {
+    font-size: 0.8em;
+}
 fieldset {
     display: inline-block;
     padding-right: 13px;
@@ -119,7 +124,7 @@ fieldset {
 }
 
 #sortable1 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-    border: 1px solid #c5c5c5;
+    border: .4px solid #c5c5c5;
     background: #f6f6f6;
     color: #777620;
     font-size: 0.7em;
@@ -128,7 +133,7 @@ fieldset {
     padding: 2px;
 }
 #sortable2 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-    border: 1px solid #b1dec5;
+    border: .4px solid #b1dec5;
     background: #c1e8d2;
     font-size: 0.7em;
     border-radius: 3px;
@@ -138,7 +143,7 @@ fieldset {
     color: #777620;
 }
 #sortable3 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-    border: 1px solid #b1dec5;
+    border: .4px solid #b1dec5;
     background: #c1e8d2;
     font-size: 0.7em;
     border-radius: 3px;
@@ -154,14 +159,16 @@ fieldset {
     font-size: 0.6em;
     margin: .1em;
 }
+
+
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
-    border: 1px solid #8ac3cf;
-    background: #b1d6de;
+    border: .4px solid #8ac3cf;
+    background: #8ac3cf21;
     font-weight: normal;
     color: #000000;
 }
 .check2.ui-state-active, .check2.ui-widget-content .check2.ui-state-active, .check2.ui-widget-header .check2.ui-state-active, a.ui-button:active, .check2.ui-button:active, .check2.ui-state-active.ui-button:hover {
-    border: 1px solid #b1dec5;
+    border: .4px solid #b1dec5;
     background: #c1e8d2;
     font-weight: normal;
     color: #000000;
@@ -177,7 +184,7 @@ fieldset {
     font-weight: bold;
 }
 .ui-widget-content {
-    border: 1px solid #dddddd;
+    border: .4px solid #dddddd;
     background: #ffffff;
     color: #333333;
 }
@@ -192,7 +199,7 @@ fieldset {
      background: #FFFFFF;
 }
 .ui-tabs .ui-tabs-nav .ui-state-active {
-    border: 1px solid #8ac3cf;
+    border: .4px solid #8ac3cf;
     background: #b1d6de;
     font-weight: normal;
     color: #000000;
@@ -226,6 +233,14 @@ input[type="checkbox" i] {
     background: #c1e8d2; !important;
 }
 
+.ui-button-alpha {
+     background: #8ac3cf21;
+    font-size: 14px !important;
+}
+.ui-button-alpha:hover {
+     background: #8ac3cf88;
+    font-size: 14px !important;
+}
 </style>
 
 <script>
@@ -276,6 +291,16 @@ var retval = []
 
 $(function() {
 
+ $( "#binopt" ).checkboxradio();
+ $( "#strict" ).checkboxradio();
+ $( "#rec" ).checkboxradio();
+
+ $( "#entPreview" ).button();
+  $( "#btnSubmit" ).button();
+  $( "#entPreview2" ).button();
+  $( "#btnSubmit2" ).button();
+  $( "#entSubmit" ).button();
+  $( "#entQuery" ).button();
 
 
 $("input[type='text']").bind('focus', function() {
@@ -453,7 +478,7 @@ req.fail(function(){
   var maxField = 10; //Input fields increment limitation
   var addButton = $('.add_button'); //Add button selector
   var wrapper = $('.field_wrapper'); //Input field wrapper
-  var fieldHTML = '<div><input type="text" name="authorfirst1t" id="authorfirst1t"  placeholder="first" value=""/><input type="text" name="authorlast1t[]" id="authorlast1t" placeholder="last" value=""/><a href="javascript:void(0);" class="remove_button"><img src="minus.png" style = "width:20px; position: absolute; margin-left: -7px;"/></a></div>'; //New input field html
+  var fieldHTML = '<div><input type="text" name="authorfirst1t" id="authorfirst1t"  placeholder="first" value="" style = "margin-right: 12px;"/><input type="text" name="authorlast1t[]" id="authorlast1t" placeholder="last" value=""/><a href="javascript:void(0);" class="remove_button"><img src="minus.png" style = "width:20px; position: absolute; margin-left: -7px;"/></a></div>'; //New input field html
   var x = 1; //Initial field counter is 1
 
   //Once add button is clicked
@@ -478,11 +503,6 @@ req.fail(function(){
         $(this).parent('div').remove(); //Remove field html
         x--; //Decrement field counter
     });
-
-
-
-
-
 
 
 $("#Speciesc").on('select2:select', function (e) {
@@ -649,8 +669,6 @@ if($('#lfatp').select2('data').length == 0){
  $(".select2-search__field").css({"width": "60px"});
 }
 });
-
-
 
 $("#Districtt").on('select2:select select2:unselect', function (e) {
   $("#Portto").val(null);
@@ -1400,7 +1418,7 @@ $("#entPreview").click(function(){
       <label id="directory">directory</label>
       <input id = "btnSubmit" type="submit" class="ui-button-alpha" value="Choose Directory"/>
       <input type="checkbox" id="rec" name=rec unchecked >
-      <label for="rec">recursive?</label>
+      <label for="rec">Subdirectories</label>
       <p>Drag files to the right side to enter</p>
       <ul id="sortable1" style="width: 40%; height: 200px; overflow-y: scroll;" class ="connectedSortable"></ul>
       <ul id="sortable2" style="width: 40%; height: 200px; overflow-y: scroll;" class="connectedSortable"></ul>

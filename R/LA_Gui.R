@@ -18,7 +18,7 @@ Archive_App <- function(){
 
 #' @title  r.choosedir
 #' @description  Function that allows the opening of a folder browser
-#' @import jsonlite opencpu rJava rChoiceDialogs
+#' @import ROracle DBI jsonlite opencpu rJava rChoiceDialogs
 #' @return file list
 #' @export
 r.choosedir <- function(sub = F){
@@ -39,7 +39,17 @@ for(i in 1:length(filetype)){
    ind = c(ind, fl[which(grepl(filetype[i], fl))])
 }
 
-exi = LA.getQuery(query = "Select URI from LobsterArchive")
+drv <- DBI::dbDriver("Oracle")
+con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+
+exi = ""
+exi = ROracle::dbSendQuery(con, "Select URI from LobsterArchive")
+exi = ROracle::fetch(exi)
+
+#exi = LA.getQuery(query = "Select URI from LobsterArchive")
+
+
+
 indexi = which(ind %in% exi$URI)
 if(length(indexi) > 0 ){
   ind = ind[-indexi]
@@ -979,22 +989,26 @@ return(jsonlite::toJSON(ret))
 #' @export
 autoavailableName = function(){
 
-
   drv <- DBI::dbDriver("Oracle")
   con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
-
 
   result = ""
   result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_NAME")
   result = ROracle::fetch(result)
-  result = unique(result)
+  result$uni = paste(result$FIRST,result$LAST,sep="")
+  rem = which(result$uni == "NANA")
+  if(length(rem) > 0)result = result[-rem,]
+  res = NULL
+  res$FIRST = result$FIRST[which(!duplicated(result$uni))]
+  res$LAST = result$LAST[which(!duplicated(result$uni))]
+  res = data.frame(res)
   ROracle::dbDisconnect(con)
-  return(jsonlite::toJSON(result))
+  return(jsonlite::toJSON(res))
 
 
 }
 
-#' @title  auto_availableSpecies
+#' @title  autoavailableSpecies
 #' @description Function that help autopopulate Species in the html form
 #' @import ROracle DBI jsonlite opencpu
 #' @param return order ro, common or scientific
@@ -1023,94 +1037,7 @@ autoavailableSpecies = function(ro = "common"){
 
 }
 
-#' @title  auto_availablePort
-#' @description Function that help autopopulate Port in the html form
-#' @import ROracle DBI jsonlite opencpu
-#' @export
-autoavailablePort = function(){
 
-  drv = DBI::dbDriver("Oracle")
-  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
-  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
-  result = ROracle::fetch(result)
-
-  ROracle::dbDisconnect(con)
-
-
-  result$pc = result$PROV_CODE
-  result$pc[which(result$pc == '1')] = "(NS)"
-  result$pc[which(result$pc == '1')] = "(NB)"
-
-  result$name = paste(result$PORT_NAME, " " ,result$pc, ": LFA", result$LFA, sep="")
-
-  result$id = 1:nrow(result)
-  result = result[which(!duplicated(result$name)),]
-  result = result[order(result$name),]
-
-  result$text = result$name
-
-
-  x = jsonlite::toJSON(result)
-
-  return(x)
-
-}
-
-#' @title  auto_availableStat
-#' @description Function that help autopopulate Stat District in the html form
-#' @import ROracle DBI jsonlite opencpu
-#' @export
-autoavailableStat = function(){
-
-  drv = DBI::dbDriver("Oracle")
-  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
-  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
-  result = ROracle::fetch(result)
-
-  ROracle::dbDisconnect(con)
-  result$name = result$STAT_DIST_CODE
-
-  result$id = 1:nrow(result)
-  result = result[which(!duplicated(result$name)),]
-  result = result[order(result$name),]
-  result$PORT_NAME = NULL
-  result$PORT_CODE = NULL
-  result$PROV_CODE = NULL
-  result$COMMUNITY_CODE = NULL
-  result$LFA = NULL
-  result$text = result$name
-
-
-  x = jsonlite::toJSON(result)
-
-  return(x)
-
-}
-#' @title  auto_availableDistrict
-#' @description Function that help autopopulate District in the html form
-#' @import ROracle DBI jsonlite opencpu
-#' @export
-autoavailableDistrict = function(ld = "district"){
-
-  drv = DBI::dbDriver("Oracle")
-  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
-  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_DISTRICT_LOOKUP")
-  result = ROracle::fetch(result)
-
-  ROracle::dbDisconnect(con)
-  if(ld == "district")
-    result$name = result$LOBSTER_DISTRICT
-  if(ld == "lfa")
-    result$name = result$LFA
-
-  result$id = 1:nrow(result)
-  result$text = result$name
-
-  x = jsonlite::toJSON(result)
-
-  return(x)
-
-}
 #' @title  autoavailablemain
 #' @description Function that sets master table of area options
 #' @import ROracle DBI jsonlite opencpu
@@ -1168,54 +1095,4 @@ autoavailable = function(column = ""){
 
 }
 
-#' @title  myUrlEncode
-#' @description  Encode url
-#' @param string The url to decode
-#' @export
-myUrlEncode <- function(string) {
- replacements = c("%21", "%2A", "%27", "%28", "%29", "%3B", "%40", "%2B", "%24", "%2C", "%3F", "%23", "%5B", "%5D")
-  entities = c("!", "\\*", "'", "\\(", ")", ";", "@", "\\+", "\\$", ",", "\\?", "#", "\\[", "]")
 
-
-  for(i in 1:length(entities)){
-
-    string = gsub(entities[i], replacements[i], string)
-  }
-  return(string)
-}
-
-#' @title  myUrlDecode
-#' @description  Decode url
-#' @param string The url to decode
-#' @export
-myUrlDecode <- function(string) {
-  entities = c("%21", "%2A", "%27", "%28", "%29", "%3B", "%3A", "%40", "%2B", "%24", "%2C", "%2F", "%3F", "%23", "%5B", "%5D")
-  replacements = c("!", "\\*", "'", "\\(", ")", ";", ":", "@", "\\+", "\\$", ",", "/", "\\?", "#", "\\[", "]")
-
-
-  for(i in 1:length(entities)){
-
-    string = gsub(entities[i], replacements[i], string)
-  }
-  return(string)
-}
-
-
-#' @title  LA.getQuery
-#' @description Function that queriest LobsterArchive
-#' @import ROracle DBI jsonlite opencpu
-#' @return data result
-#' @export
-LA.getQuery = function(query = ""){
-
-  drv <- DBI::dbDriver("Oracle")
-  con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
-
-  result = ""
-  result = ROracle::dbSendQuery(con, query)
-  result = ROracle::fetch(result)
-
-  ROracle::dbDisconnect(con)
-  return(result)
-
-}

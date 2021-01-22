@@ -2,7 +2,7 @@
 % Please edit documentation in R/LA_Gui.R
 \name{autoavailableSpecies}
 \alias{autoavailableSpecies}
-\title{auto_availableSpecies}
+\title{autoavailableSpecies}
 \usage{
 autoavailableSpecies(ro = "common")
 }
