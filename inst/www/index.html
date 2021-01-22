@@ -328,7 +328,7 @@ fq = querymt(maintab, "LFA")
     closeOnSelect: false,
     data: fq
     });
-fq = querymt(maintab, "Lobster.District")
+fq = querymt(maintab, "LOBSTER_DISTRICT")
     $("#Districtt").select2({
     theme: "classic",
     closeOnSelect: false,
@@ -530,13 +530,13 @@ $("#Portto").on('select2:select  select2:unselect', function (e) {
   }
 
  fn = filtermt(maintab, "fullport", dx);
- ld = querymt(fn, "Lobster.District");
+ ld = querymt(fn, "LOBSTER_DISTRICT");
   lx = [];
     for(i = 0; i < ld.length; i++){
       lx.push(ld[i].text);
     }
-  lag = filtermt(maintab, "Lobster.District", lx);
-  laq = querymt(lag, "Lobster.District");
+  lag = filtermt(maintab, "LOBSTER_DISTRICT", lx);
+  laq = querymt(lag, "LOBSTER_DISTRICT");
   sx = [];
     for(i = 0; i < laq.length; i++){
       sx.push(laq[i].id);
@@ -596,13 +596,13 @@ $("#lfatp").on('select2:select  select2:unselect', function (e) {
   }
 
  fn = filtermt(maintab, "fulllfa", dx);
- ld = querymt(fn, "Lobster.District");
+ ld = querymt(fn, "LOBSTER_DISTRICT");
   lx = [];
     for(i = 0; i < ld.length; i++){
       lx.push(ld[i].text);
     }
-  lag = filtermt(maintab, "Lobster.District", lx);
-  laq = querymt(lag, "Lobster.District");
+  lag = filtermt(maintab, "LOBSTER_DISTRICT", lx);
+  laq = querymt(lag, "LOBSTER_DISTRICT");
   sx = [];
     for(i = 0; i < laq.length; i++){
       sx.push(laq[i].id);
@@ -664,7 +664,7 @@ $("#Districtt").on('select2:select select2:unselect', function (e) {
     dx.push($('#Districtt').select2('data')[i].text);
   //  di.push($('#Districtt').select2('data')[i].id);
   }
-  fx = filtermt(maintab, "Lobster.District", dx);
+  fx = filtermt(maintab, "LOBSTER_DISTRICT", dx);
  // qx = querymt(maintab, "LFA" );
     //Want to change options for LFA
     qx = querymt(fx, "LFA")
@@ -692,7 +692,7 @@ $("#lfat").on('select2:select select2:unselect', function (e) {
   fx = filtermt(maintab, "LFA", dx);
  // qx = querymt(maintab, "LFA" );
     //Want to change options for LFA
-    qx = querymt(fx, "Lobster.District")
+    qx = querymt(fx, "LOBSTER_DISTRICT")
     sx = [];
     for(i = 0; i < qx.length; i++){
       sx.push(qx[i].id);
@@ -746,8 +746,8 @@ $("#Portt").on('select2:select select2:unselect', function (e) {
     $("#lfat").val(ind);
     $("#lfat").trigger('change');
 
-    searchdat = querymt(maintab, "Lobster.District");
-    matchname = "Lobster.District";
+    searchdat = querymt(maintab, "LOBSTER_DISTRICT");
+    matchname = "LOBSTER_DISTRICT";
     ind = queryid(searchdat, fx, matchname)
     $("#Districtt").val(ind);
     $("#Districtt").trigger('change');
@@ -796,8 +796,8 @@ $("#Portcodet").on('select2:select select2:unselect', function (e) {
     $("#lfat").val(ind);
     $("#lfat").trigger('change');
 
-    searchdat = querymt(maintab, "Lobster.District");
-    matchname = "Lobster.District";
+    searchdat = querymt(maintab, "LOBSTER_DISTRICT");
+    matchname = "LOBSTER_DISTRICT";
     ind = queryid(searchdat, fx, matchname)
     $("#Districtt").val(ind);
     $("#Districtt").trigger('change');
@@ -824,8 +824,8 @@ $("#Statdistrictt").on('select2:select select2:unselect', function (e) {
     $("#lfat").val(ind);
     $("#lfat").trigger('change');
 
-    searchdat = querymt(maintab, "Lobster.District");
-    matchname = "Lobster.District";
+    searchdat = querymt(maintab, "LOBSTER_DISTRICT");
+    matchname = "LOBSTER_DISTRICT";
     ind = queryid(searchdat, fx, matchname)
     $("#Districtt").val(ind);
     $("#Districtt").trigger('change');
@@ -1138,7 +1138,7 @@ if($('#strict').prop("checked")){
        var obj = JSON.parse(mes);
       var strmess = String(obj["files"]);
       var arrmess = strmess.split(',');
-      alert(arrmess);
+
       var i;
       var x;
       for (i = 0; i < arrmess.length; i++) {

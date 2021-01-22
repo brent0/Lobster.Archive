@@ -1,22 +1,18 @@
-require(data.table)
-
 #' @title  t_imagebin
 #' @description  temporary function to store working bin opts
 #' @export
-t_imagebin <- function(){
-fn = "C:\\Users\\cameronbj\\Documents\\R\\win-library\\4.0\\Lobster.Archive\\www\\select2-4.0.13\\docs\\themes\\site\\images\\mstile-70x70.png"
-fn2 = "C:\\Users\\cameronbj\\Documents\\R\\mstile-70x702.png"
+t_imagebin <- function(fn, fn2){
 pb <- paste(readBin(fn, what="raw", n=1e6), collapse="")
 bytes <- as.raw(strtoi(substring(pb, seq(1,nchar(pb), by=2), seq(2,nchar(pb), by=2)), base=16))
 writeBin(bytes, fn2)
 }
 
 
-#' @title  THE MAIN GUI FUNCTION!
-#' @description  Opens web page of options for data entry
+#' @title Archive_App
+#' @description THE MAIN GUI FUNCTION! Opens web page of options for data entry
 #' @import opencpu
 #' @export
-enter_data_app <- function(){
+Archive_App <- function(){
   opencpu::ocpu_start_app("Lobster.Archive", no_cache = TRUE)
 }
 
@@ -26,7 +22,8 @@ enter_data_app <- function(){
 #' @return file list
 #' @export
 r.choosedir <- function(sub = F){
-  dx = jchoose.dir(default = "C://", caption = "Select Directory")
+library(rChoiceDialogs)
+  dx = rChoiceDialogs::jchoose.dir(default = "C://", caption = "Select Directory")
   dx = gsub("\\\\", "/", dx)
  fl = list.files(dx, full.names = T, recursive = sub )
 #remove any temporary files
@@ -71,11 +68,11 @@ r.getPreview <- function(flist){
 }
 #' @title  r.write
 #' @description Function that writes archive data to database
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @return message to webpage
 #' @export
 r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo, Imgbin){
-  library("ROracle")
+
   out = ""
   out = paste(out," File: ", uri, sep = "")
 
@@ -221,7 +218,6 @@ if(is.character(years)){
 
     }
 
-   # ROracle::dbCommit(con)
 
   }
 
@@ -294,16 +290,16 @@ if(is.character(years)){
 
 #' @title  r.read
 #' @description Function that read archived data and returns files
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @return list of uri's to webpage
 #' @export
 r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo, strict){
-  library("ROracle")
+
 #strict = "AND"
 #firstnames = "Brent,Ben,"
 #lastnames = "Cameron,Zisserson,"
-  drv <- DBI::dbDriver("Oracle")
-  con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  drv = DBI::dbDriver("Oracle")
+  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
 
   nameframe = NULL
   if(firstnames != "" || lastnames != ""){
@@ -979,10 +975,10 @@ return(jsonlite::toJSON(ret))
 
 #' @title  autoavailableName
 #' @description Function that help autopopulate Names in the html form
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @export
 autoavailableName = function(){
-  library("ROracle")
+
 
   drv <- DBI::dbDriver("Oracle")
   con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
@@ -1000,13 +996,17 @@ autoavailableName = function(){
 
 #' @title  auto_availableSpecies
 #' @description Function that help autopopulate Species in the html form
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @param return order ro, common or scientific
 #' @export
 autoavailableSpecies = function(ro = "common"){
 
-  fn =system.file("extdata", "speciescodes.csv", package = "Lobster.Archive")
-  result = read.csv(file=fn, head=T, sep=",")
+  drv = DBI::dbDriver("Oracle")
+  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_SPECIES_LOOKUP")
+  result = ROracle::fetch(result)
+
+  ROracle::dbDisconnect(con)
 
   if(ro == "common")
     result$name = paste(result$COMMON, result$SPECIES_CODE, sep=": ")
@@ -1025,12 +1025,17 @@ autoavailableSpecies = function(ro = "common"){
 
 #' @title  auto_availablePort
 #' @description Function that help autopopulate Port in the html form
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @export
 autoavailablePort = function(){
 
-  fn =system.file("extdata", "statdistrictcodes.csv", package = "Lobster.Archive")
-  result = read.csv(file=fn, head=T, sep=",")
+  drv = DBI::dbDriver("Oracle")
+  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
+  result = ROracle::fetch(result)
+
+  ROracle::dbDisconnect(con)
+
 
   result$pc = result$PROV_CODE
   result$pc[which(result$pc == '1')] = "(NS)"
@@ -1053,13 +1058,16 @@ autoavailablePort = function(){
 
 #' @title  auto_availableStat
 #' @description Function that help autopopulate Stat District in the html form
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @export
 autoavailableStat = function(){
 
-  fn =system.file("extdata", "statdistrictcodes.csv", package = "Lobster.Archive")
-  result = read.csv(file=fn, head=T, sep=",")
+  drv = DBI::dbDriver("Oracle")
+  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
+  result = ROracle::fetch(result)
 
+  ROracle::dbDisconnect(con)
   result$name = result$STAT_DIST_CODE
 
   result$id = 1:nrow(result)
@@ -1080,15 +1088,18 @@ autoavailableStat = function(){
 }
 #' @title  auto_availableDistrict
 #' @description Function that help autopopulate District in the html form
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @export
 autoavailableDistrict = function(ld = "district"){
 
-  fn =system.file("extdata", "districtcodes.csv", package = "Lobster.Archive")
-  result = read.csv(file=fn, head=T, sep=",")
+  drv = DBI::dbDriver("Oracle")
+  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_DISTRICT_LOOKUP")
+  result = ROracle::fetch(result)
 
+  ROracle::dbDisconnect(con)
   if(ld == "district")
-    result$name = result$Lobster.District
+    result$name = result$LOBSTER_DISTRICT
   if(ld == "lfa")
     result$name = result$LFA
 
@@ -1102,15 +1113,19 @@ autoavailableDistrict = function(ld = "district"){
 }
 #' @title  autoavailablemain
 #' @description Function that sets master table of area options
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @export
 autoavailablemain = function(){
 
-  fn =system.file("extdata", "statdistrictcodes.csv", package = "Lobster.Archive")
-  result2 = read.csv(file=fn, head=T, sep=",")
+  drv = DBI::dbDriver("Oracle")
+  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  result2 = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
+  result2 = ROracle::fetch(result2)
 
-  fn =system.file("extdata", "districtcodes.csv", package = "Lobster.Archive")
-  result = read.csv(file=fn, head=T, sep=",")
+  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_DISTRICT_LOOKUP")
+  result = ROracle::fetch(result)
+
+  ROracle::dbDisconnect(con)
 
   main_area = merge(result2, result, by = "LFA")
 
@@ -1136,11 +1151,11 @@ autoavailablemain = function(){
 
 #' @title  autoavailable
 #' @description Function that returns unique values of a column
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @param column The column to return
 #' @export
 autoavailable = function(column = ""){
-  library("ROracle")
+
 
   drv <- DBI::dbDriver("Oracle")
   con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
@@ -1188,11 +1203,10 @@ myUrlDecode <- function(string) {
 
 #' @title  LA.getQuery
 #' @description Function that queriest LobsterArchive
-#' @import ROracle DBI jsonlite
+#' @import ROracle DBI jsonlite opencpu
 #' @return data result
 #' @export
 LA.getQuery = function(query = ""){
-  library("ROracle")
 
   drv <- DBI::dbDriver("Oracle")
   con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)

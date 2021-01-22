@@ -4,7 +4,7 @@
 \alias{autoavailableDistrict}
 \title{auto_availableDistrict}
 \usage{
-autoavailableDistrict()
+autoavailableDistrict(ld = "district")
 }
 \description{
 Function that help autopopulate District in the html form

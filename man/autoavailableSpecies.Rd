@@ -4,7 +4,10 @@
 \alias{autoavailableSpecies}
 \title{auto_availableSpecies}
 \usage{
-autoavailableSpecies()
+autoavailableSpecies(ro = "common")
+}
+\arguments{
+\item{return}{order ro, common or scientific}
 }
 \description{
 Function that help autopopulate Species in the html form
