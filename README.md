@@ -1,28 +1,23 @@
-
-Installation:
-
-
-1. To install:
+To install
 
 ```
-  install.packages( "devtools", ask=F, dependencies=TRUE ) # to inter-operate with github
+install.packages( "devtools", ask=F, dependencies=TRUE ) # to inter-operate with github
 devtools::install_github( "brent0/Lobster.Archive", INSTALL_opts = "--no-multiarch")# to bootstrap by installing directly from github
 ```
 
+Rprofile 
 
-2. Then, you need to have an Rprofile set up properly. 
-
-```.
-
-# store your passwords and login here and make sure they are secure
-passwords = file.path( homedir, ".passwords" )
-if (file.exists(passwords)) source( passwords )
+```
+# Add code to your Rprofile.site file that sources the needed oracle usernames, passwords ans server
+oracle.password = "yourpassword"
+oracle.username = "yourusername"
+oracle.server = "yourserver"
 ```
 
-3. Usage. ON FIRST RUN CLICK ALLOW ON SECURTITY PROMPTS!!!!
+Usage.
+ON FIRST RUN CLICK ALLOW ON SECURTITY PROMPTS!!!!
 
-```.
-
+```
  library("Lobster.Archive")
  Archive_App()
  ```

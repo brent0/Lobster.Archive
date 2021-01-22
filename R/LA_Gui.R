@@ -40,7 +40,7 @@ for(i in 1:length(filetype)){
 }
 
 drv <- DBI::dbDriver("Oracle")
-con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
 exi = ""
 exi = ROracle::dbSendQuery(con, "Select URI from LobsterArchive")
@@ -87,7 +87,7 @@ r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdi
   out = paste(out," File: ", uri, sep = "")
 
   drv <- DBI::dbDriver("Oracle")
-  con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
   uri = gsub("'", "''", uri)
   if(firstnames != "" || lastnames != ""){
@@ -309,7 +309,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
 #firstnames = "Brent,Ben,"
 #lastnames = "Cameron,Zisserson,"
   drv = DBI::dbDriver("Oracle")
-  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  con = ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
   nameframe = NULL
   if(firstnames != "" || lastnames != ""){
@@ -990,7 +990,7 @@ return(jsonlite::toJSON(ret))
 autoavailableName = function(){
 
   drv <- DBI::dbDriver("Oracle")
-  con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
   result = ""
   result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_NAME")
@@ -1016,7 +1016,7 @@ autoavailableName = function(){
 autoavailableSpecies = function(ro = "common"){
 
   drv = DBI::dbDriver("Oracle")
-  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  con = ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
   result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_SPECIES_LOOKUP")
   result = ROracle::fetch(result)
 
@@ -1045,7 +1045,7 @@ autoavailableSpecies = function(ro = "common"){
 autoavailablemain = function(){
 
   drv = DBI::dbDriver("Oracle")
-  con = ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  con = ROracle::dbConnect(drv, username = oracle.user, password =oracle.password, dbname = oracle.server)
   result2 = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
   result2 = ROracle::fetch(result2)
 
@@ -1085,7 +1085,7 @@ autoavailable = function(column = ""){
 
 
   drv <- DBI::dbDriver("Oracle")
-  con <- ROracle::dbConnect(drv, username = oracle.snowcrab.user, password = oracle.snowcrab.password, dbname = oracle.snowcrab.server)
+  con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
   result = ""
   result = ROracle::dbSendQuery(con, paste("select ",column," from LobsterArchive", sep=""))
   result = ROracle::fetch(result)
