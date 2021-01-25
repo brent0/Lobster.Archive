@@ -3,6 +3,7 @@
 #' @export
 t_imagebin <- function(fn, fn2){
 pb <- paste(readBin(fn, what="raw", n=1e6), collapse="")
+fs = file.size(fn)
 bytes <- as.raw(strtoi(substring(pb, seq(1,nchar(pb), by=2), seq(2,nchar(pb), by=2)), base=16))
 writeBin(bytes, fn2)
 }
@@ -43,12 +44,8 @@ drv <- DBI::dbDriver("Oracle")
 con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
 exi = ""
-exi = ROracle::dbSendQuery(con, "Select URI from LobsterArchive")
+exi = ROracle::dbSendQuery(con, "Select URI from LOBSTER.LOBSTERARCHIVE")
 exi = ROracle::fetch(exi)
-
-#exi = LA.getQuery(query = "Select URI from LobsterArchive")
-
-
 
 indexi = which(ind %in% exi$URI)
 if(length(indexi) > 0 ){
@@ -93,7 +90,7 @@ r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdi
   if(firstnames != "" || lastnames != ""){
   fnames = gsub(" ", "", unlist(strsplit(firstnames, ",")))
   lnames = gsub(" ", "", unlist(strsplit(lastnames, ",")))
-  wri = paste("INSERT INTO LOBSTERARCHIVE_NAME (FIRST, LAST, URI) VALUES( '",fnames,"' , '",lnames,"' , '",uri,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_NAME (FIRST, LAST, URI) VALUES( '",fnames,"' , '",lnames,"' , '",uri,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -114,7 +111,7 @@ if(is.character(years)){
   yrs = gsub(" ", "", unlist(strsplit(years, ",")))
 
 
-  wri = paste("INSERT INTO LOBSTERARCHIVE_YEAR (URI, YEAR) VALUES( '",uri,"' , '",yrs,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_YEAR (URI, YEAR) VALUES( '",uri,"' , '",yrs,"')", sep = "")
  for(i in 1:length(wri)){
    rs = ROracle::dbSendQuery(con, wri[i])
   if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -134,7 +131,7 @@ if(is.character(years)){
   lfa = gsub("'", "''", lfa)
   district = gsub("'", "''", district)
 
-  wri = paste("INSERT INTO LOBSTERARCHIVE_LFA (URI, LFA, DISTRICT) VALUES( '",uri,"' , '",lfa,"' , '",district,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_LFA (URI, LFA, DISTRICT) VALUES( '",uri,"' , '",lfa,"' , '",district,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -152,7 +149,7 @@ if(is.character(years)){
   if(is.character(sdistricts)){
   sdistrict = gsub(" ", "", unlist(strsplit(sdistricts, ",")))
   sdistrict = gsub("'", "''", sdistrict)
-  wri = paste("INSERT INTO LOBSTERARCHIVE_STATDIST (URI, STATDIST) VALUES( '",uri,"' , '",sdistrict,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_STATDIST (URI, STATDIST) VALUES( '",uri,"' , '",sdistrict,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -172,7 +169,7 @@ if(is.character(years)){
   if(is.character(communities)){
   commun = gsub(" ", "", unlist(strsplit(communities, ",")))
   commun = gsub("'", "''", commun)
-  wri = paste("INSERT INTO LOBSTERARCHIVE_COMMUNITY(URI, COMMUNITY_CODE) VALUES( '",uri,"' , '",commun,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_COMMUNITY(URI, COMMUNITY_CODE) VALUES( '",uri,"' , '",commun,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -194,7 +191,7 @@ if(is.character(years)){
   portc = gsub("'", "''", portc)
   codep = gsub("'", "''", codep)
 
-  wri = paste("INSERT INTO LOBSTERARCHIVE_PORT(URI, PORT_NAME, PORT_CODE) VALUES( '",uri,"' , '",portc,"' , '",codep,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_PORT(URI, PORT_NAME, PORT_CODE) VALUES( '",uri,"' , '",portc,"' , '",codep,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -215,7 +212,7 @@ if(is.character(years)){
   prov = gsub(" ", "", unlist(strsplit(provinces, ",")))
   prov = gsub("'", "''", prov)
 
-  wri = paste("INSERT INTO LOBSTERARCHIVE_PROVINCE(URI, PROV) VALUES( '",uri,"' , '",prov,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_PROVINCE(URI, PROV) VALUES( '",uri,"' , '",prov,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -238,7 +235,7 @@ if(is.character(years)){
   specn = gsub("'", "''", specn)
   specc = gsub("'", "''", specc)
 
-  wri = paste("INSERT INTO LOBSTERARCHIVE_SPECIES(URI, SPECIES_NAME, SPECIES_CODE) VALUES( '",uri,"' , '",specn,"' , '",specc,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE_SPECIES(URI, SPECIES_NAME, SPECIES_CODE) VALUES( '",uri,"' , '",specn,"' , '",specc,"')", sep = "")
   for(i in 1:length(wri)){
     rs = ROracle::dbSendQuery(con, wri[i])
     if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -276,7 +273,7 @@ if(is.character(years)){
      pb <- paste(readBin(uri, what="raw", n=1e6), collapse="")
    }
 
-  wri = paste("INSERT INTO LOBSTERARCHIVE(PROJECT,  URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE,  CUSK,  DEPTH,  DIVE,  DREDGE,  EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ,  MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC,  NEWSPAPER,  OFFSHORE,  FISHING_POSITIONS,  POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW,  SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION,  TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR, IMG_BIN_16)
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(PROJECT,  URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE,  CUSK,  DEPTH,  DIVE,  DREDGE,  EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ,  MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC,  NEWSPAPER,  OFFSHORE,  FISHING_POSITIONS,  POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW,  SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION,  TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR, IMG_BIN_16)
                               VALUES( '",proj,"' , '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cl,"' , '",Co,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Ma,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Ne,"' , '",Of,"' , '",Fi,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"' , '", pb,"')", sep = "")
 
   rs = ROracle::dbSendQuery(con, wri)
@@ -305,9 +302,6 @@ if(is.character(years)){
 #' @export
 r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo, strict){
 
-#strict = "AND"
-#firstnames = "Brent,Ben,"
-#lastnames = "Cameron,Zisserson,"
   drv = DBI::dbDriver("Oracle")
   con = ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
@@ -317,7 +311,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     lnames = gsub(" ", "", unlist(strsplit(lastnames, ",")))
 
     if(strict == "OR"){
-    query = "Select * from LOBSTERARCHIVE_NAME where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_NAME where "
     for(i in 1:length(fnames)){
       if(i == length(fnames)){
         query = paste(query, "FIRST = '", fnames[i], "' AND ", "LAST = '", lnames[i], "' ", sep = "")
@@ -331,7 +325,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
 
       for(i in 1:length(fnames)){
         tnf = NULL
-        query = "Select * from LOBSTERARCHIVE_NAME where "
+        query = "Select * from LOBSTER.LOBSTERARCHIVE_NAME where "
         query = paste(query, "FIRST = '", fnames[i], "' AND ", "LAST = '", lnames[i], "' ", sep = "")
 
         tnf = ROracle::dbSendQuery(con, query)
@@ -355,7 +349,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   if(is.character(years) && years != ""){
     yrs = gsub(" ", "", unlist(strsplit(years, ",")))
     if(strict == "OR"){
-    query = "Select * from LOBSTERARCHIVE_YEAR where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_YEAR where "
     for(i in 1:length(yrs)){
       if(i == length(yrs)){
         query = paste(query, "YEAR = '", yrs[i], "' ", sep = "")
@@ -368,7 +362,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(years)){
         tnf = NULL
-        query = "Select * from LOBSTERARCHIVE_YEAR where "
+        query = "Select * from LOBSTER.LOBSTERARCHIVE_YEAR where "
         query = paste(query, "YEAR = '", yrs[i], "' ", sep = "")
         tnf = ROracle::dbSendQuery(con, query)
         tnf = ROracle::fetch(tnf)
@@ -394,7 +388,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     district = gsub(" ", "", unlist(strsplit(districts, ",")))
     if(strict == "OR"){
 
-    query = "Select * from LOBSTERARCHIVE_LFA where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_LFA where "
     for(i in 1:length(lfa)){
       if(i == length(lfa)){
         query = paste(query, "LFA = '", lfa[i], "' AND ", "DISTRICT = '", district[i], "' ", sep = "")
@@ -407,7 +401,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(lfa)){
         tnf = NULL
-        query = "Select * from LOBSTERARCHIVE_LFA where  "
+        query = "Select * from LOBSTER.LOBSTERARCHIVE_LFA where  "
         query = paste(query, "LFA = '", lfa[i], "' AND ", "DISTRICT = '", district[i], "' ", sep = "")
         tnf = ROracle::dbSendQuery(con, query)
         tnf = ROracle::fetch(tnf)
@@ -431,7 +425,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     sdistrict = gsub(" ", "", unlist(strsplit(sdistricts, ",")))
     sdistrict = gsub("'", "''", sdistrict)
     if(strict == "OR"){
-    query = "Select * from LOBSTERARCHIVE_STATDIST where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_STATDIST where "
     for(i in 1:length(sdistrict)){
       if(i == length(sdistrict)){
         query = paste(query, "STATDIST = '", sdistrict[i], "' ", sep = "")
@@ -444,7 +438,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(sdistrict)){
         tnf = NULL
-        query = "Select * from LOBSTERARCHIVE_STATDIST where  "
+        query = "Select * from LOBSTER.LOBSTERARCHIVE_STATDIST where  "
         query = paste(query, "STATDIST = '", sdistrict[i], "' ", sep = "")
         tnf = ROracle::dbSendQuery(con, query)
         tnf = ROracle::fetch(tnf)
@@ -466,7 +460,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     commun = gsub(" ", "", unlist(strsplit(communities, ",")))
     commun = gsub("'", "''", commun)
     if(strict == "OR"){
-    query = "Select * from LOBSTERARCHIVE_COMMUNITY where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_COMMUNITY where "
     for(i in 1:length(commun)){
       if(i == length(commun)){
         query = paste(query, "COMMUNITY_CODE = '", commun[i], "' ", sep = "")
@@ -479,7 +473,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(commun)){
         tnf = NULL
-        query = "Select * from LOBSTERARCHIVE_COMMUNITY where  "
+        query = "Select * from LOBSTER.LOBSTERARCHIVE_COMMUNITY where  "
         query = paste(query, "COMMUNITY_CODE = '", commun[i], "' ", sep = "")
         tnf = ROracle::dbSendQuery(con, query)
         tnf = ROracle::fetch(tnf)
@@ -506,7 +500,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     if(strict == "OR"){
 
 
-    query = "Select * from LOBSTERARCHIVE_PORT where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_PORT where "
     for(i in 1:length(portc)){
       if(i == length(portc)){
         query = paste(query, "PORT_NAME = '", portc[i], "' AND ", "PORT_CODE = '", codep[i], "' ", sep = "")
@@ -519,7 +513,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(portc)){
         tnf = NULL
-        query = "Select * from LOBSTERARCHIVE_PORT where  "
+        query = "Select * from LOBSTER.LOBSTERARCHIVE_PORT where  "
         query = paste(query, "PORT_NAME = '", portc[i], "' AND ", "PORT_CODE = '", codep[i], "' ", sep = "")
         tnf = ROracle::dbSendQuery(con, query)
         tnf = ROracle::fetch(tnf)
@@ -543,7 +537,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     prov = gsub("'", "''", prov)
     if(strict == "OR"){
 
-    query = "Select * from LOBSTERARCHIVE_PROVINCE where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_PROVINCE where "
     for(i in 1:length(prov)){
       if(i == length(prov)){
         query = paste(query, "PROV = '", prov[i], "' ", sep = "")
@@ -556,7 +550,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(prov)){
       tnf = NULL
-      query = "Select * from LOBSTERARCHIVE_PROVINCE where  "
+      query = "Select * from LOBSTER.LOBSTERARCHIVE_PROVINCE where  "
       query = paste(query, "PROV = '", prov[i], "' ", sep = "")
       tnf = ROracle::dbSendQuery(con, query)
       tnf = ROracle::fetch(tnf)
@@ -580,7 +574,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     specn = gsub("'", "''", specn)
     specc = gsub("'", "''", specc)
     if(strict == "OR"){
-    query = "Select * from LOBSTERARCHIVE_SPECIES where "
+    query = "Select * from LOBSTER.LOBSTERARCHIVE_SPECIES where "
     for(i in 1:length(specn)){
       if(i == length(specn)){
         query = paste(query, "SPECIES_NAME = '", specn[i], "' AND ", "SPECIES_CODE = '", specc[i], "' ", sep = "")
@@ -593,7 +587,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     }else{
       for(i in 1:length(specn)){
       tnf = NULL
-      query = "Select * from LOBSTERARCHIVE_SPECIES where  "
+      query = "Select * from LOBSTER.LOBSTERARCHIVE_SPECIES where  "
       query = paste(query, "SPECIES_NAME = '", specn[i], "' AND ", "SPECIES_CODE = '", specc[i], "' ", sep = "")
       tnf = ROracle::dbSendQuery(con, query)
       tnf = ROracle::fetch(tnf)
@@ -612,7 +606,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   }
 
   optsframe = NULL
-  query = "Select * from LOBSTERARCHIVE where "
+  query = "Select * from LOBSTER.LOBSTERARCHIVE where "
   if(is.character(proj)){
     if(proj != ""){
       proj = gsub("'", "''", proj)
@@ -800,7 +794,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
     query = paste(query, strict, " WORKSHOP_SEMINAR = '", Wo, "' ", sep = "")
   }
 
-  if(query != "Select * from LOBSTERARCHIVE where "){
+  if(query != "Select * from LOBSTER.LOBSTERARCHIVE where "){
   query = sub(strict, "", query)
   optsframe = ROracle::dbSendQuery(con, query)
   optsframe = ROracle::fetch(optsframe)
@@ -993,7 +987,7 @@ autoavailableName = function(){
   con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
 
   result = ""
-  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_NAME")
+  result = ROracle::dbSendQuery(con, "select * from LOBSTER.LOBSTERARCHIVE_NAME")
   result = ROracle::fetch(result)
   result$uni = paste(result$FIRST,result$LAST,sep="")
   rem = which(result$uni == "NANA")
@@ -1017,7 +1011,7 @@ autoavailableSpecies = function(ro = "common"){
 
   drv = DBI::dbDriver("Oracle")
   con = ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
-  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_SPECIES_LOOKUP")
+  result = ROracle::dbSendQuery(con, "select * from LOBSTER.LOBSTERARCHIVE_SPECIES_LOOKUP")
   result = ROracle::fetch(result)
 
   ROracle::dbDisconnect(con)
@@ -1046,10 +1040,10 @@ autoavailablemain = function(){
 
   drv = DBI::dbDriver("Oracle")
   con = ROracle::dbConnect(drv, username = oracle.user, password =oracle.password, dbname = oracle.server)
-  result2 = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_PORT_LOOKUP")
+  result2 = ROracle::dbSendQuery(con, "select * from LOBSTER.LOBSTERARCHIVE_PORT_LOOKUP")
   result2 = ROracle::fetch(result2)
 
-  result = ROracle::dbSendQuery(con, "select * from LOBSTERARCHIVE_DISTRICT_LOOKUP")
+  result = ROracle::dbSendQuery(con, "select * from LOBSTER.LOBSTERARCHIVE_DISTRICT_LOOKUP")
   result = ROracle::fetch(result)
 
   ROracle::dbDisconnect(con)
@@ -1087,7 +1081,7 @@ autoavailable = function(column = ""){
   drv <- DBI::dbDriver("Oracle")
   con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.password, dbname = oracle.server)
   result = ""
-  result = ROracle::dbSendQuery(con, paste("select ",column," from LobsterArchive", sep=""))
+  result = ROracle::dbSendQuery(con, paste("select ",column," from LOBSTER.LobsterArchive", sep=""))
   result = ROracle::fetch(result)
   result = unique(result)
   ROracle::dbDisconnect(con)
