@@ -2,7 +2,7 @@ To install
 
 ```
 The following R packages are needed:
-DBI ROracle jsonlite opencpu rChoiceDialogs rJava
+devtools DBI ROracle jsonlite opencpu rChoiceDialogs rJava
 
 Then do:
 install.packages( "devtools", ask=F, dependencies=TRUE ) # to inter-operate with github
