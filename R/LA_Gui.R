@@ -2,10 +2,9 @@
 #' @description  temporary function to store working bin opts
 #' @export
 t_imagebin <- function(fn, fn2){
-pb <- paste(readBin(fn, what="raw", n=1e6), collapse="")
-fs = file.size(fn)
-bytes <- as.raw(strtoi(substring(pb, seq(1,nchar(pb), by=2), seq(2,nchar(pb), by=2)), base=16))
-writeBin(bytes, fn2)
+  pb <- paste(readBin(fn, what="raw", n=1e6), collapse="")
+  bytes <- as.raw(strtoi(substring(pb, seq(1,nchar(pb), by=2), seq(2,nchar(pb), by=2)), base=16))
+  writeBin(bytes, fn2)
 }
 
 
@@ -293,6 +292,7 @@ if(is.character(years)){
   return(out)
 
 }
+
 
 
 #' @title  r.read

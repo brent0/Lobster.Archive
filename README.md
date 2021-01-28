@@ -1,6 +1,10 @@
 To install
 
 ```
+The following R packages are needed:
+DBI ROracle jsonlite opencpu rChoiceDialogs rJava
+
+Then do:
 install.packages( "devtools", ask=F, dependencies=TRUE ) # to inter-operate with github
 devtools::install_github( "brent0/Lobster.Archive", INSTALL_opts = "--no-multiarch")# to bootstrap by installing directly from github
 ```
