@@ -21,6 +21,29 @@
   box-sizing: border-box;
 }
 
+pcom {
+    color: gray;
+    font-size: x-small;
+    vertical-align: top;
+    display: block;
+}
+#selectable li {
+  margin: 0 3px 3px 3px;
+    padding: 3px;
+    font-size: 0.8em;
+    border-radius: 5px;
+}
+#selectable .ui-selected {
+    background: #c1e8d2;
+    color: #2b2b2b;
+}
+ #selectable .ui-selecting { background: #b1d6de; }
+
+  #selectable { list-style-type: none; margin: 0; padding: 0; width: 75%; }
+
+
+
+
 /* Create two unequal columns that floats next to each other */
 .column {
   float: left;
@@ -84,7 +107,7 @@ fieldset {
     direction: rtl;
 }
 
-#sortable1, #sortable2, #sortable3 {
+#sortable1, #sortable2 {
     border: 1px solid #eee;
     width: 142px;
     min-height: 20px;
@@ -94,7 +117,7 @@ fieldset {
     float: left;
     margin-right: 10px;
 }
-#sortable1 li, #sortable2 li, #sortable3 li {
+#sortable1 li, #sortable2 li{
     margin: 0 5px 5px 5px;
     padding: 5px;
     font-size: 1.2em;
@@ -142,18 +165,7 @@ fieldset {
     font-weight: normal;
     color: #777620;
 }
-#sortable3 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-    border: .4px solid #b1dec5;
-    background: #c1e8d2;
-    font-size: 0.7em;
-    border-radius: 3px;
-    margin: 3px;
-    padding: 2px;
-    font-weight: normal;
-    color: #777620;
 
-
-}
 .ui-widget {
     font-family: Arial,Helvetica,sans-serif;
     font-size: 0.6em;
@@ -290,14 +302,19 @@ var retval = []
 }
 
 $(function() {
+$( "#selectable").selectable();
 
- $( "#binopt" ).checkboxradio();
  $( "#strict" ).checkboxradio();
  $( "#rec" ).checkboxradio();
 
  $( "#entPreview" ).button();
+  $( "#clears" ).button();
   $( "#btnSubmit" ).button();
   $( "#entPreview2" ).button();
+  $( "#clearquery" ).button();
+    $( "#export" ).button();
+    $( "#clearselected" ).button();
+      $( "#clearunselected" ).button();
   $( "#btnSubmit2" ).button();
   $( "#entSubmit" ).button();
   $( "#entQuery" ).button();
@@ -995,8 +1012,7 @@ $( "#tabs" ).tabs();
   $("#strict, label[for=strict]").hide();
 
 
-$( "#sortable3").sortable({
-}).disableSelection();
+
 
 $( "#sortable1, #sortable2" ).sortable({
   connectWith: ".connectedSortable"
@@ -1162,10 +1178,20 @@ if($('#strict').prop("checked")){
       for (i = 0; i < arrmess.length; i++) {
         var arrstr = arrmess[i];
         var ass = arrstr.replace(/%2C/g, ",");
-        x = $("<div class='ui-state-highlight' value = '"+ass+"'>'"+ass+"'<span class='handle'></span></div>");
-        $("#sortable3").append(x);
+
+        var daopts = "";
+        $('#selectable.ui-selected').addClass('ui-unselecting').removeClass('ui-selected');
+    $('#selectable').append('<li class="ui-widget-content ui-selectee ui-selecting">'+ass+'</li>');
+
+    $('#selectable').selectable("refresh");
+
+   // $('#selectable').data("ui-selectable")._mouseStop(null);
+
+
+      //  $('#selectable').append('<option value= '+ass+' selected="selected">'+ass+'</option>');
+
       }
-      $("#sortable3").sortable('refresh');
+      //$("#sortable3").selectable('refresh');
     }
   });
 
@@ -1310,18 +1336,14 @@ if(document.querySelector('input[name="datatype"]:checked') != null){
   proj = document.querySelector('input[name="datatype"]:checked').id}
 
 
-var incimg = "N";
-if($('#binopt').prop("checked")){
-  incimg = "Y";
-}
 
 var uri = "";
 var cl = $("#sortable2").children().length;
 for (i = 0; i < cl; i++) {
   uri = sortable2.children[0].getAttribute('value');
+alert(uri)
 
-
-  var req = ocpu.rpc("r.write",{proj:proj, years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Ne:Ne, Of:Of, Fi:Fi, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, Imgbin:incimg}, function(mes){
+  var req = ocpu.rpc("r.write",{proj:proj, years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Ne:Ne, Of:Of, Fi:Fi, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo}, function(mes){
 
 
     if(mes == false){
@@ -1330,22 +1352,58 @@ for (i = 0; i < cl; i++) {
 
 		}
 		else{
+
 		   $('#mesbak').val($('#mesbak').val()+mes);
-      sortable2.removeChild(sortable2.children[0]);
+
+
     }
   });
+    sortable2.removeChild(sortable2.children[0]);
 }
 
 });
-$("#entPreview2").click(function(){
+
+$("#clearselected").click(function(){
+  $( ".ui-selected").remove();
+});
+$("#clearunselected").click(function(){
+  $( ".ui-selectee").remove();
+});
+$("#clearquery").click(function(){
+  $( "#selectable").empty();
+});
+$("#export").click(function(){
+
   var strlist = "";
-  var cl = $("#sortable3").children().length;
+
+  var cl = $( ".ui-selected").children.length;
   for (i = 0; i < cl; i++) {
    if(i == cl-1){
-      strlist = strlist + sortable3.children[i].getAttribute('value');
+      strlist = strlist + $( ".ui-selected")[i].innerHTML;
     }
     else{
-      strlist = strlist + sortable3.children[i].getAttribute('value') + "#filesep";
+      strlist = strlist + $( ".ui-selected")[i].innerHTML + "#filesep";
+    }
+  }
+
+  var req = ocpu.rpc("r.move",{flist: strlist }, function(mes){
+	  if(mes == false){
+	    alert(mes);
+	  }else{}
+	   $('#mesbak').val($('#mesbak').val()+mes);
+
+    });
+  });
+$("#entPreview2").click(function(){
+  var strlist = "";
+
+  var cl = $( ".ui-selected").children.length;
+  for (i = 0; i < cl; i++) {
+   if(i == cl-1){
+      strlist = strlist + $( ".ui-selected")[i].innerHTML;
+    }
+    else{
+      strlist = strlist + $( ".ui-selected")[i].innerHTML + "#filesep";
     }
   }
 
@@ -1355,6 +1413,12 @@ $("#entPreview2").click(function(){
 	  }else{}
     });
   });
+
+
+  $("#clears").click(function(){
+  $("#sortable1").empty();
+    $("#sortable2").empty();
+});
 $("#entPreview").click(function(){
   var strlist = "";
   var cl = $("#sortable2").children().length;
@@ -1413,25 +1477,38 @@ $("#entPreview").click(function(){
 </ul>
 <div id="enter">
   <div class="container" style = "width: 100%; display:inline-block;">
+
+
     <fieldset style="width: 98%;">
       <legend>Files:</legend>
       <label id="directory">directory</label>
       <input id = "btnSubmit" type="submit" class="ui-button-alpha" value="Choose Directory"/>
       <input type="checkbox" id="rec" name=rec unchecked >
-      <label for="rec">Subdirectories</label>
+         <label for="rec">Subdirectories</label>
       <p>Drag files to the right side to enter</p>
-      <ul id="sortable1" style="width: 40%; height: 200px; overflow-y: scroll;" class ="connectedSortable"></ul>
+         <ul id="sortable1" style="width: 40%; height: 200px; overflow-y: scroll;" class ="connectedSortable">     </ul>
+
       <ul id="sortable2" style="width: 40%; height: 200px; overflow-y: scroll;" class="connectedSortable"></ul>
       <input id = "entPreview" type="submit" class="ui-button-alpha" value="Preview Data"/>
+ <br><input id = "clears" type="submit" class="ui-button-alpha" value="Clear"/>
+
     </fieldset>
 </div>
 </div>
 <div id="retrieve">
-<div class="container" style = "width: 100%; display:inline-block;">
+<div class="container" style = "width: 98%; display:inline-block;">
     <fieldset style="width: 98%;">
       <legend>Files:</legend>
-      <ul id="sortable3" style="width: 40%; height: 200px; overflow-y: scroll;" ></ul>
-      <input id = "entPreview2" type="submit" class="ui-button-alpha" value="Preview Data"/>
+      <pcom>ctrl+click for multiple selections</pcom>
+      <span>
+      <ol id="selectable" style="height: 200px; overflow-y: scroll; display:inline-block; width: 50%;" ></ol>
+        <input id = "clearquery" style="vertical-align:top;" type="submit" class="ui-button-alpha" value="Clear All"/>
+        <input id = "clearselected" style="vertical-align:top;" type="submit" class="ui-button-alpha" value="Clear Selected"/>
+         <input id = "clearunselected" style="vertical-align:top;" type="submit" class="ui-button-alpha" value="Clear Un-Selected"/></span>
+         <br>
+         <input id = "entPreview2" type="submit" class="ui-button-alpha" value="Preview Selected"/>
+
+        <input id = "export" type="submit" class="ui-button-alpha" value="Export"/>
     </fieldset>
 </div>
 </div>
@@ -1811,8 +1888,7 @@ $("#entPreview").click(function(){
 <br><br>
 <input id = "entSubmit" class="ui-button-alpha" type="submit" value="Enter Data"/>
 <input id = "entQuery" class="ui-button-alpha" type="submit" value="Query Data"/>
-<input type="checkbox" id="binopt" name="binopt" unchecked="">
-<label for="binopt">Include Image</label>
+
 <input type="checkbox" id="strict" name="strict" unchecked="">
 <label for="strict">STRICT</label>
  </div>
@@ -2445,14 +2521,14 @@ if(target[ 0 ].id == "other"){
 $('a[href="#retrieve"]').on('click', function() {
      $("#entSubmit").hide();
      $("#entQuery").show();
-     $("#binopt, label[for=binopt]").hide();
+
       $("#strict, label[for=strict]").show();
    });
 
 $('a[href="#enter"]').on('click', function() {
   $("#entSubmit").show();
   $("#entQuery").hide();
-  $("#binopt, label[for=binopt]").show();
+
    $("#strict, label[for=strict]").hide();
 });
 </script>

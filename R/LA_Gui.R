@@ -1,11 +1,4 @@
-#' @title  t_imagebin
-#' @description  temporary function to store working bin opts
-#' @export
-t_imagebin <- function(fn, fn2){
-  pb <- paste(readBin(fn, what="raw", n=1e6), collapse="")
-  bytes <- as.raw(strtoi(substring(pb, seq(1,nchar(pb), by=2), seq(2,nchar(pb), by=2)), base=16))
-  writeBin(bytes, fn2)
-}
+#' @import rChoiceDialogs rJava
 
 
 #' @title Archive_App
@@ -16,16 +9,27 @@ Archive_App <- function(){
   opencpu::ocpu_start_app("Lobster.Archive", no_cache = TRUE)
 }
 
+
+
 #' @title  r.choosedir
 #' @description  Function that allows the opening of a folder browser
-#' @import ROracle DBI jsonlite opencpu rJava rChoiceDialogs
+#' @import ROracle DBI jsonlite opencpu
 #' @return file list
 #' @export
 r.choosedir <- function(sub = F){
-library(rChoiceDialogs)
-  dx = rChoiceDialogs::jchoose.dir(default = "C://", caption = "Select Directory")
+
+  library(rChoiceDialogs)
+  #Sys.sleep(1) #pause just a little for dailogs
+  #dx = tclvalue(tkchooseDirectory(initialdir="C:/", title="Select directory"))
+  #dx = rchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Directory")
+ # dx = gsub("\\\\", "/", dx)
+
+  dx = jchoose.dir(default = Sys.getenv("HOME"),  caption = "Choose Directory")
   dx = gsub("\\\\", "/", dx)
- fl = list.files(dx, full.names = T, recursive = sub )
+
+
+  fl = list.files(dx, full.names = T, recursive = sub )
+
 #remove any temporary files
 tempind = which(grepl("~\\$", fl))
 if(length(tempind) > 0 ){
@@ -58,7 +62,29 @@ ret$files = c(dx, ind)
 
 }
 
+#' @title  r.move
+#' @description  Function allows the moving files to a folder
+#' @import opencpu
+#' @return message to webpage
+#' @export
+r.move <- function(flist){
 
+  library(rChoiceDialogs)
+  #Sys.sleep(1) #pause just a little for dailogs
+  #dx = tclvalue(tkchooseDirectory(initialdir="C:/", title="Select directory"))
+  #dx = rchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Directory")
+  # dx = gsub("\\\\", "/", dx)
+
+  dx = jchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Directory")
+  dx = gsub("\\\\", "/", dx)
+
+  fl = unlist(strsplit(flist, "#filesep"))
+  for(i in 1:length(fl)){
+    file.copy(fl[i], paste(dx, basename(fl[i]), sep = .Platform$file.sep), overwrite = T, copy.date = TRUE)
+  }
+  return(paste("Files copied to ", dx, sep=""))
+
+}
 #' @title  r.getPreview
 #' @description  Function allows the preview of files
 #' @import jsonlite opencpu
@@ -77,7 +103,7 @@ r.getPreview <- function(flist){
 #' @import ROracle DBI jsonlite opencpu
 #' @return message to webpage
 #' @export
-r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo, Imgbin){
+r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo){
 
   out = ""
   out = paste(out," File: ", uri, sep = "")
@@ -267,13 +293,10 @@ if(is.character(years)){
   docname = gsub("'", "''", docname)
   pagesname = gsub("'", "''", pagesname)
   abstractname = gsub("'", "''", abstractname)
-  pb = ""
-   if(Imgbin == "Y"){
-     pb <- paste(readBin(uri, what="raw", n=1e6), collapse="")
-   }
 
-  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(PROJECT,  URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE,  CUSK,  DEPTH,  DIVE,  DREDGE,  EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ,  MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC,  NEWSPAPER,  OFFSHORE,  FISHING_POSITIONS,  POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW,  SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION,  TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR, IMG_BIN_16)
-                              VALUES( '",proj,"' , '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cl,"' , '",Co,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Ma,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Ne,"' , '",Of,"' , '",Fi,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"' , '", pb,"')", sep = "")
+
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(PROJECT,  URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE,  CUSK,  DEPTH,  DIVE,  DREDGE,  EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ,  MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC,  NEWSPAPER,  OFFSHORE,  FISHING_POSITIONS,  POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW,  SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION,  TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR)
+                              VALUES( '",proj,"' , '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cl,"' , '",Co,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Ma,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Ne,"' , '",Of,"' , '",Fi,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"')", sep = "")
 
   rs = ROracle::dbSendQuery(con, wri)
   if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -292,7 +315,6 @@ if(is.character(years)){
   return(out)
 
 }
-
 
 
 #' @title  r.read
@@ -492,7 +514,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   }
 
   portframe = NULL
-  if(is.character(portcodes)){
+  if(is.character(portcodes) && portcodes != ""){
     portc = gsub(" ", "", unlist(strsplit(portcodes, ",")))
     codep = gsub(" ", "", unlist(strsplit(codeports, ",")))
     portc = gsub("'", "''", portc)
@@ -798,8 +820,7 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   query = sub(strict, "", query)
   optsframe = ROracle::dbSendQuery(con, query)
   optsframe = ROracle::fetch(optsframe)
-  }
-  else{
+  }else{
     optsframe = NULL
   }
   ROracle::dbDisconnect(con)

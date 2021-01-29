@@ -74,8 +74,7 @@ r.write(
   Vi,
   Vn,
   Vo,
-  Wo,
-  Imgbin
+  Wo
 )
 }
 \value{
