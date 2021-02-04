@@ -4,7 +4,7 @@
 \alias{r.choosedir}
 \title{r.choosedir}
 \usage{
-r.choosedir(sub = F)
+r.choosedir(sub = F, def = "L:/")
 }
 \value{
 file list
