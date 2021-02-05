@@ -16,16 +16,17 @@ Archive_App <- function(){
 #' @export
 r.choosedir <- function(sub = F, def = "L:/"){
 
-  library(rChoiceDialogs)
-  #Sys.sleep(1) #pause just a little for dailogs
-  #dx = tclvalue(tkchooseDirectory(initialdir="C:/", title="Select directory"))
-  #dx = rchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Directory")
- # dx = gsub("\\\\", "/", dx)
+    library(rChoiceDialogs)
+
 if(def == ""){
-  dx = jchoose.dir(default = "L:/",  caption = "Choose Directory")
-  dx = gsub("\\\\", "/", dx)
+  Sys.setenv('LAARC' = "L:")
+     dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
+
+    dx = gsub("\\\\", "/", dx)
 }else{
-  dx = jchoose.dir(default = def,  caption = "Choose Directory")
+  def = sub("/", "", def)
+  Sys.setenv('LAARC' = def)
+  dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
   dx = gsub("\\\\", "/", dx)
 }
 
@@ -71,10 +72,6 @@ ret$files = c(dx, ind)
 r.move <- function(flist){
 
   library(rChoiceDialogs)
-  #Sys.sleep(1) #pause just a little for dailogs
-  #dx = tclvalue(tkchooseDirectory(initialdir="C:/", title="Select directory"))
-  #dx = rchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Directory")
-  # dx = gsub("\\\\", "/", dx)
 
   dx = jchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Drive")
   dx = gsub("\\\\", "/", dx)
@@ -87,9 +84,14 @@ r.move <- function(flist){
 
 }
 
+#' @title  checkdrive
+#' @description  Checks to see if L drive exists and sets variable if so
+#' @import opencpu
+#' @return message to webpage
+#' @export
 checkdrive <- function(){
   if(dir.exists(file.path("L:\\"))){
-    return("T")
+       return("T")
   }
   else{
     return("F")
@@ -102,12 +104,16 @@ checkdrive <- function(){
 #' @return message to webpage
 #' @export
 changedrive <- function(){
-  library(rChoiceDialogs)
 
+
+  library(rChoiceDialogs)
 
   dx = jchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Drive")
   dx = gsub("\\\\", "/", dx)
+  dx = paste(unlist(strsplit(dx, ":"))[1], ":/", sep = "")
+
   return(dx)
+
 }
 
 #' @title  r.getPreview

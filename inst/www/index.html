@@ -328,6 +328,7 @@ $("#messopts").dialog({
             "Ignore":  function() {
 					var req = ocpu.rpc("changedrive",{}, function(output){
             dl = output;
+
           });
           req.fail(function(){
 	        alert("R returned an error: " + req.responseText);
@@ -1507,7 +1508,7 @@ $("#entPreview").click(function(){
     var check = $('#rec').prop("checked");
 	  var req = ocpu.rpc("r.choosedir",{sub: check, def: dl }, function(mes){
 		if(mes == false){
-		  alert(mes);
+
 		}
 		else{
 		  var obj = JSON.parse(mes);
