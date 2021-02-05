@@ -19,6 +19,7 @@ r.choosedir <- function(sub = F, def = "L:/"){
     library(rChoiceDialogs)
 
 if(def == ""){
+  def = "L:"
   Sys.setenv('LAARC' = "L:")
      dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
 
@@ -51,7 +52,7 @@ con <- ROracle::dbConnect(drv, username = oracle.user, password = oracle.passwor
 exi = ""
 exi = ROracle::dbSendQuery(con, "Select URI from LOBSTER.LOBSTERARCHIVE")
 exi = ROracle::fetch(exi)
-
+ind = gsub(def, "L:", ind)
 indexi = which(ind %in% exi$URI)
 if(length(indexi) > 0 ){
   ind = ind[-indexi]
