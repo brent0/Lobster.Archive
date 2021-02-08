@@ -1073,6 +1073,7 @@ $( "#tabs" ).tabs();
 $( "#sortable1, #sortable2" ).sortable({
   connectWith: ".connectedSortable"
 }).disableSelection();
+
 $("#entQuery").click(function(){
   var firstnames = "";
   var lastnames = "";
@@ -1485,6 +1486,12 @@ $("#entPreview2").click(function(){
   $("#sortable1").empty();
     $("#sortable2").empty();
 });
+
+
+$("#sortable2").on( "sortreceive", function( event, ui ) {
+  $("#namet").blur();
+});
+
 $("#entPreview").click(function(){
   var strlist = "";
   var cl = $("#sortable2").children().length;
