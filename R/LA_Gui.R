@@ -125,7 +125,7 @@ changedrive <- function(){
 r.getPreview <- function(flist){
   fl = unlist(strsplit(flist, "#filesep"))
   for(i in 1:length(fl)){
-    browseURL(fl[i])
+    shell.exec(fl[i])
   }
   return(TRUE)
 

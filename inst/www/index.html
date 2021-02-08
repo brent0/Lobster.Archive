@@ -33,7 +33,7 @@ pcom {
 #selectable li {
   margin: 0 3px 3px 3px;
     padding: 3px;
-    font-size: 0.8em;
+    font-size: 0.9em;
     border-radius: 5px;
 }
 #selectable .ui-selected {
@@ -92,7 +92,7 @@ pcom {
 	box-shadow: 0 0 2px .3px rgb(94, 158, 214);
 }
 .ui-widget .ui-widget {
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 fieldset {
     display: inline-block;
@@ -153,7 +153,7 @@ fieldset {
     border: .4px solid #c5c5c5;
     background: #f6f6f6;
     color: #777620;
-    font-size: 0.7em;
+    font-size: 0.9em;
     border-radius: 3px;
     margin: 3px;
     padding: 2px;
@@ -161,7 +161,7 @@ fieldset {
 #sortable2 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     border: .4px solid #b1dec5;
     background: #c1e8d2;
-    font-size: 0.7em;
+    font-size: 0.9em;
     border-radius: 3px;
     margin: 3px;
     padding: 2px;
@@ -1496,7 +1496,9 @@ $("#entPreview").click(function(){
       strlist = strlist + sortable2.children[i].getAttribute('value') + "#filesep";
     }
   }
-
+if(dl != ""){
+  strlist = strlist.replaceAll("L:/", dl)
+}
   var req = ocpu.rpc("r.getPreview",{flist: strlist }, function(mes){
 	  if(mes == false){
 	    alert(mes);
