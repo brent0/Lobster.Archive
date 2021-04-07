@@ -135,7 +135,7 @@ r.getPreview <- function(flist){
 #' @import ROracle DBI jsonlite opencpu
 #' @return message to webpage
 #' @export
-r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cr, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Lo, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo){
+r.write = function(proj, years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cr, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Lo, Ma, Mu, Mt, Mi, Mo, Ms, Ne, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Tag, Te, Ts, Tr, Ta, Up, Us, Vi, Vn, Vo, Wo){
 
   out = ""
   out = paste(out," File: ", uri, sep = "")
@@ -327,8 +327,8 @@ if(is.character(years)){
   abstractname = gsub("'", "''", abstractname)
 
 
-  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(PROJECT,  URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE, CRIS, CUSK,  DEPTH,  DIVE,  DREDGE,  EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ, LOBSTER_CL_DB, MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC,  NEWSPAPER,  OFFSHORE,  FISHING_POSITIONS, PARTIALLY_ENTERED, POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW,  SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION,  TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR)
-                              VALUES( '",proj,"' , '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cl,"' , '",Co,"' , '",Cr,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Lo,"' , '",Ma,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Ne,"' , '",Of,"' , '",Fi,"' , '",Pa,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(PROJECT,  URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE, CRIS, CUSK,  DEPTH,  DIVE,  DREDGE,  EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ, LOBSTER_CL_DB, MANDATORY_LOGBOOK, MANUSCRIPT,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC,  NEWSPAPER,  OFFSHORE,  FISHING_POSITIONS, PARTIALLY_ENTERED, POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW,  SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION,  TAGGING, TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT, UNITED_STATES,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR)
+                              VALUES( '",proj,"' , '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cl,"' , '",Co,"' , '",Cr,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Lo,"' , '",Ma,"' , '",Mu,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Ne,"' , '",Of,"' , '",Fi,"' , '",Pa,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Tag,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Us,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"')", sep = "")
 
   rs = ROracle::dbSendQuery(con, wri)
   if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -354,7 +354,7 @@ if(is.character(years)){
 #' @import ROracle DBI jsonlite opencpu
 #' @return list of uri's to webpage
 #' @export
-r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cr, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Lo, Ma, Mt, Mi, Mo, Ms, Ne, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Vi, Vn, Vo, Wo, strict){
+r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cr, Cu, De, Dv, Dr, Ef, En, Fr, Ge, Hi, Im, In, Id, It, Jo, La, Le, Lo, Ma, Mu, Mt, Mi, Mo, Ms, Ne, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Se, Sl, So, Su, Sc, Tag, Te, Ts, Tr, Ta, Up, Us, Vi, Vn, Vo, Wo, strict){
 
   drv = DBI::dbDriver("Oracle")
   con = ROracle::dbConnect(drv, username = oracle.username, password = oracle.password, dbname = oracle.server)
@@ -775,6 +775,9 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   if(Ma == "Y"){
     query = paste(query, strict, " MANDATORY_LOGBOOK = '", Ma, "' ", sep = "")
   }
+  if(Mu == "Y"){
+    query = paste(query, strict, " MANUSCRIPT = '", Mu, "' ", sep = "")
+  }
   if(Mt == "Y"){
     query = paste(query, strict, " MATURITY = '", Mt, "' ", sep = "")
   }
@@ -829,6 +832,9 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   if(Sc == "Y"){
     query = paste(query, strict, " SUCTION = '", Sc, "' ", sep = "")
   }
+  if(Tag == "Y"){
+    query = paste(query, strict, " TAGGING = '", Tag, "' ", sep = "")
+  }
   if(Te == "Y"){
     query = paste(query, strict, " TEMPERATURE = '", Te, "' ", sep = "")
   }
@@ -843,6 +849,9 @@ r.read = function(proj, years, firstnames, lastnames, lfas, districts, sdistrict
   }
   if(Up == "Y"){
     query = paste(query, strict, " UPDAT = '", Up, "' ", sep = "")
+  }
+  if(Us == "Y"){
+    query = paste(query, strict, " UNITED_STATES = '", Us, "' ", sep = "")
   }
   if(Vi == "Y"){
     query = paste(query, strict, " VIDEO = '", Vi, "' ", sep = "")
