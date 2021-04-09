@@ -16,18 +16,20 @@ Archive_App <- function(){
 #' @export
 r.choosedir <- function(sub = F, def = "L:/"){
 
-    library(rChoiceDialogs)
+  library(rChoiceDialogs)
 
 if(def == ""){
   def = "L:"
   Sys.setenv('LAARC' = "L:")
      dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
+    # dx = rChoiceDialogs::rchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory")
 
     dx = gsub("\\\\", "/", dx)
 }else{
   def = sub("/", "", def)
   Sys.setenv('LAARC' = def)
   dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
+  #dx = rChoiceDialogs::rchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory")
   dx = gsub("\\\\", "/", dx)
 }
 
@@ -72,10 +74,12 @@ ret$files = c(dx, ind)
 #' @export
 r.move <- function(flist){
 
-  library(rChoiceDialogs)
+ # library(rChoiceDialogs)
 
   dx = jchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Drive")
-  dx = gsub("\\\\", "/", dx)
+#  dx = choose.dir(default = Sys.getenv("HOME"),  caption = "Select Drive")
+
+   dx = gsub("\\\\", "/", dx)
 
   fl = unlist(strsplit(flist, "#filesep"))
   for(i in 1:length(fl)){
@@ -107,10 +111,12 @@ checkdrive <- function(){
 changedrive <- function(){
 
 
-  library(rChoiceDialogs)
+  #library(rChoiceDialogs)
 
   dx = jchoose.dir(default = Sys.getenv("HOME"),  caption = "Select Drive")
-  dx = gsub("\\\\", "/", dx)
+#  dx = choose.dir(default = Sys.getenv("HOME"),  caption = "Select Drive")
+
+   dx = gsub("\\\\", "/", dx)
   dx = paste(unlist(strsplit(dx, ":"))[1], ":/", sep = "")
 
   return(dx)

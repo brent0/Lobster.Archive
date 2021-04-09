@@ -341,11 +341,11 @@ $("#messopts").dialog({
 
 var req = ocpu.rpc("checkdrive",{}, function(output){
   if(output == "T"){
-
+$( "#btnSubmit" ).button( "enable" );
   }else{
   $("#messopts").html("You do not currently have the L drive mapped. Press Quit to close the app and manually map the drive on your PC. Click Ignore to choose the drive you would like use for now. Select 'This PC' on the file chooser and then select the drive. L: will be swapped with your selection.").dialog();
 $("#messopts").dialog("open");
-
+$( "#btnSubmit" ).button( "enable" );
   }
 });
 req.fail(function(){
@@ -360,6 +360,8 @@ $( "#selectable").selectable();
  $( "#entPreview" ).button();
   $( "#clears" ).button();
   $( "#btnSubmit" ).button();
+
+
   $( "#entPreview2" ).button();
   $( "#clearquery" ).button();
     $( "#export" ).button();
@@ -1596,7 +1598,8 @@ if(dl != ""){
     <fieldset style="width: 98%;">
       <legend>Files:</legend>
       <label id="directory">directory</label>
-      <input id = "btnSubmit" type="submit" class="ui-button-alpha" value="Choose Directory"/>
+      <input id = "btnSubmit" type="submit" class="ui-button-alpha" value="Choose Directory" disabled='disabled' />
+
       <input type="checkbox" id="rec" name=rec unchecked >
          <label for="rec">Subdirectories</label>
       <p>Drag files to the right side to enter</p>
@@ -2707,6 +2710,9 @@ $('a[href="#enter"]').on('click', function() {
 
    $("#strict, label[for=strict]").hide();
 });
+
+
+
 </script>
 
 </body>
