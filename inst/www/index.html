@@ -450,25 +450,6 @@ fq = querymt(maintab, "COMMUNITY_CODE")
   });
 
 
-
-
-//$( "#namet" ).focus(function() {
-//  var availableDocName = [];
-//      var cl = $("#sortable2").children().length;
-  //    for (i = 0; i < cl; i++) {
-    //    var na = sortable2.children[i].getAttribute('value');
-   //     na = na.replace(/^.*[\\\/]/, '');
-  //      na = na.split('.').slice(0, -1).join('.');
-  //      availableDocName[i] = na
- //     }
-//			$( "#namet" ).autocomplete({
- //     source: availableDocName,
- //     minLength: 0
-//    });
-
-
-//});
-
 $( "#namet" ).focus(function() {
   var availableDocName = [];
       var cl = $("#sortable2").children().length;
@@ -1270,7 +1251,7 @@ var strict = "OR";
 if($('#strict').prop("checked")){
   strict = "AND";
 }
-  var req = ocpu.rpc("r.read",{proj:proj, years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:li, Lo:Lo, Ma:Ma, Mu:Mu, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Tag:Tag, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict}, function(mes){
+  var req = ocpu.rpc("r.read",{proj:proj, years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Ma:Ma, Mu:Mu, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Tag:Tag, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict}, function(mes){
 
 
     if(mes == false){
@@ -1288,7 +1269,10 @@ if($('#strict').prop("checked")){
       var x;
       for (i = 0; i < arrmess.length; i++) {
         var arrstr = arrmess[i];
+
         var ass = arrstr.replace(/%2C/g, ",");
+
+
 if(dl != ""){
   ass = ass.replace("L:/", dl)
 }
@@ -1297,14 +1281,7 @@ if(dl != ""){
     $('#selectable').append('<li class="ui-widget-content ui-selectee">'+ass+'</li>');
 
     $('#selectable').selectable("refresh");
-
-   // $('#selectable').data("ui-selectable")._mouseStop(null);
-
-
-      //  $('#selectable').append('<option value= '+ass+' selected="selected">'+ass+'</option>');
-
       }
-      //$("#sortable3").selectable('refresh');
     }
   });
 
@@ -1588,6 +1565,7 @@ if(dl != ""){
       for (i = 1; i < arrmess.length; i++) {
         var arrstr = arrmess[i];
         var ass = arrstr.replace(/%2C/g, ",");
+
         x = $("<div class='ui-state-highlight' value = '"+ass+"'>'"+ass+"'<span class='handle'></span></div>");
         $("#sortable1").append(x);
       }
@@ -2087,29 +2065,15 @@ $( "#Name" ).click(function() { if($( "#Name" ).is(":checked")){
   $('#namet').show();} else{ $('#namet').hide();}
 });
 $( "#lfa" ).click(function() { if($( "#lfa" ).is(":checked")){
-//  $('#lfatdiv').show();
-//  $('#Districttdiv').show();
-//  $('#Statdistricttdiv').show();
-//  $('#Porttdiv').show();
+
 }
 else{
-//  $('#lfatdiv').hide();
+
 
 
   }
 });
-//$( "#lfa" ).click(function() { if($( "#lfa" ).is(":checked")){
-//  $('#lfatdiv').show();} else{ $('#lfatdiv').hide();}
-//});
-//$( "#District" ).click(function() { if($( "#District" ).is(":checked")){
-//  $('#Districttdiv').show();} else{ $('#Districttdiv').hide();}
-//});
-//$( "#Statdistrict" ).click(function() { if($( "#Statdistrict" ).is(":checked")){
-//  $('#Statdistricttdiv').show();} else{ $('#Statdistricttdiv').hide();}
-//});
-//$( "#Port" ).click(function() { if($( "#Port" ).is(":checked")){
-//  $('#Porttdiv').show();} else{ $('#Porttdiv').hide();}
-//});
+
 
 $( "#Species" ).click(function() { if($( "#Species" ).is(":checked")){
   $('#Speciestdiv').show();} else{ $('#Speciestdiv').hide();}

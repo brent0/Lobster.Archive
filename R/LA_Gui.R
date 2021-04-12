@@ -15,24 +15,36 @@ Archive_App <- function(){
 #' @return file list
 #' @export
 r.choosedir <- function(sub = F, def = "L:/"){
+ cont = FALSE
 
-  library(rChoiceDialogs)
+   out <- tryCatch(
+    {
+      library(rChoiceDialogs)
 
-if(def == ""){
-  def = "L:"
-  Sys.setenv('LAARC' = "L:")
-     dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
-    # dx = rChoiceDialogs::rchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory")
+      if(def == ""){
+        def = "L:"
+        Sys.setenv('LAARC' = "L:")
+        dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
+        # dx = rChoiceDialogs::rchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory")
 
-    dx = gsub("\\\\", "/", dx)
-}else{
-  def = sub("/", "", def)
-  Sys.setenv('LAARC' = def)
-  dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
-  #dx = rChoiceDialogs::rchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory")
-  dx = gsub("\\\\", "/", dx)
-}
-
+        dx = gsub("\\\\", "/", dx)
+      }else{
+        def = sub("/", "", def)
+        Sys.setenv('LAARC' = def)
+        dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
+        #dx = rChoiceDialogs::rchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory")
+        dx = gsub("\\\\", "/", dx)
+      }
+      cont = TRUE
+    },
+    error=function(cond) {
+      Sys.sleep(1)
+      r.choosedir(sub = sub, def = def)
+    },
+    finally={
+    }
+  )
+ if(cont){
   fl = list.files(dx, full.names = T, recursive = sub )
 
 #remove any temporary files
@@ -60,12 +72,14 @@ if(length(indexi) > 0 ){
   ind = ind[-indexi]
 }
 ind  = gsub(",", "%2C", ind)
+ind = gsub("'", "&#39", ind)
 ret = NULL
 ret$omit = length(indexi)
 ret$files = c(dx, ind)
   return(jsonlite::toJSON(ret))
-
 }
+}
+
 
 #' @title  r.move
 #' @description  Function allows the moving files to a folder
@@ -131,7 +145,9 @@ changedrive <- function(){
 r.getPreview <- function(flist){
   fl = unlist(strsplit(flist, "#filesep"))
   for(i in 1:length(fl)){
-    shell.exec(fl[i])
+    x = fl[i]
+    ind = gsub("&#39", "'", x)
+    shell.exec(x)
   }
   return(TRUE)
 
@@ -1056,6 +1072,7 @@ if(strict == "OR"){
 if(length(returi) == 0)return("No matches for the selection")
 
 ind  = gsub(",", "%2C", returi)
+ind = gsub("'", "&#39", ind)
 ret = NULL
 ret$files = ind
 return(jsonlite::toJSON(ret))
