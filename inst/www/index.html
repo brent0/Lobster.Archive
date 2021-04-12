@@ -364,11 +364,14 @@ $( "#selectable").selectable();
 
   $( "#entPreview2" ).button();
   $( "#clearquery" ).button();
-    $( "#export" ).button();
-    $( "#clearselected" ).button();
-      $( "#clearunselected" ).button();
+  $( "#export" ).button();
+  $( "#clearselected" ).button();
+  $( "#clearunselected" ).button();
   $( "#btnSubmit2" ).button();
   $( "#entSubmit" ).button();
+  $( "#entSubmit" ).attr('title', 'Associate selected tags to the files listed in the right pane in oracle tables');
+  $( "#backup" ).button();
+  $("#backup").attr('title', 'This will backup oracle tables to the mapped L drive');
   $( "#entQuery" ).button();
 
 
@@ -618,10 +621,9 @@ $("#Portto").on('select2:select  select2:unselect', function (e) {
 
 
  dx = [];
- //di = [];
+
   for(i = 0; i < $('#Portto').select2('data').length; i++){
     dx.push($('#Portto').select2('data')[i].text);
- //    di.push($('#lfatp').select2('data')[i].id);
   }
 
  fn = filtermt(maintab, "fullport", dx);
@@ -752,14 +754,10 @@ $("#Districtt").on('select2:select select2:unselect', function (e) {
   $("#lfatp").trigger('change');
 
   dx = [];
- // di = [];
   for(i = 0; i < $('#Districtt').select2('data').length; i++){
     dx.push($('#Districtt').select2('data')[i].text);
-  //  di.push($('#Districtt').select2('data')[i].id);
-  }
+   }
   fx = filtermt(maintab, "LOBSTER_DISTRICT", dx);
- // qx = querymt(maintab, "LFA" );
-    //Want to change options for LFA
     qx = querymt(fx, "LFA")
     sx = [];
     for(i = 0; i < qx.length; i++){
@@ -767,8 +765,6 @@ $("#Districtt").on('select2:select select2:unselect', function (e) {
     }
     $("#lfat").val(sx);
     $("#lfat").trigger('change');
-    //$("#lfat > option").prop("selected","selected");
-   // $("#lfat").trigger('change');
  $(".select2-search__field").css({"width": "60px"});
 });
 $("#lfat").on('select2:select select2:unselect', function (e) {
@@ -777,14 +773,12 @@ $("#lfat").on('select2:select select2:unselect', function (e) {
   $("#lfatp").val(null);
   $("#lfatp").trigger('change');
   dx = [];
- // di = [];
-  for(i = 0; i < $('#lfat').select2('data').length; i++){
+   for(i = 0; i < $('#lfat').select2('data').length; i++){
     dx.push($('#lfat').select2('data')[i].text);
 
   }
   fx = filtermt(maintab, "LFA", dx);
- // qx = querymt(maintab, "LFA" );
-    //Want to change options for LFA
+     //Want to change options for LFA
     qx = querymt(fx, "LOBSTER_DISTRICT")
     sx = [];
     for(i = 0; i < qx.length; i++){
@@ -792,9 +786,6 @@ $("#lfat").on('select2:select select2:unselect', function (e) {
     }
     $("#Districtt").val(sx);
     $("#Districtt").trigger('change');
-    //$("#lfat > option").prop("selected","selected");
-   // $("#lfat").trigger('change');
-
 
 });
 
@@ -804,7 +795,6 @@ $("#Portt").on('select2:select select2:unselect', function (e) {
   $("#lfatp").val(null);
   $("#lfatp").trigger('change');
   dx = [];
- // di = [];
   for(i = 0; i < $('#Portt').select2('data').length; i++){
     dx.push($('#Portt').select2('data')[i].text);
   }
@@ -815,7 +805,7 @@ $("#Portt").on('select2:select select2:unselect', function (e) {
     $("#Portcodet").val(ind);
     $("#Portcodet").trigger('change');
 
-        searchdat = querymt(maintab, "pc");
+    searchdat = querymt(maintab, "pc");
     matchname = "pc";
     ind = queryid(searchdat, fx, matchname)
     $("#Provt").val(ind);
@@ -833,7 +823,7 @@ $("#Portt").on('select2:select select2:unselect', function (e) {
     $("#Communityt").val(ind);
     $("#Communityt").trigger('change');
 
- searchdat = querymt(maintab, "LFA");
+    searchdat = querymt(maintab, "LFA");
     matchname = "LFA";
     ind = queryid(searchdat, fx, matchname)
     $("#lfat").val(ind);
@@ -852,8 +842,7 @@ $("#Portcodet").on('select2:select select2:unselect', function (e) {
   $("#lfatp").val(null);
   $("#lfatp").trigger('change');
   dx = [];
- // di = [];
-  for(i = 0; i < $('#Portcodet').select2('data').length; i++){
+   for(i = 0; i < $('#Portcodet').select2('data').length; i++){
     dx.push($('#Portcodet').select2('data')[i].text);
   }
   fx = filtermt(maintab, "codeport", dx);
@@ -904,7 +893,7 @@ $("#Statdistrictt").on('select2:select select2:unselect', function (e) {
   $("#lfatp").val(null);
   $("#lfatp").trigger('change');
   dx = [];
- // di = [];
+
   for(i = 0; i < $('#Statdistrictt').select2('data').length; i++){
     dx.push($('#Statdistrictt').select2('data')[i].text);
 
@@ -946,19 +935,14 @@ $('#Pagest').hide();
 $( "#advisorycommittee" ).checkboxradio({icon: false});
 $( "#aerial" ).checkboxradio({icon: false});
 $( "#assessment" ).checkboxradio({icon: false});
-
 $( "#lfa" ).checkboxradio({icon: false});
-//$('#lfatdiv').hide();
 $( "#District" ).checkboxradio({icon: false});
-//$( "#Districttdiv" ).hide();
 $( "#Statdistrict" ).checkboxradio({icon: false});
-//$( "#Statdistricttdiv" ).hide();
 $( "#Community" ).checkboxradio({icon: false});
 $( "#Species" ).checkboxradio({icon: false});
 $( "#Speciestdiv" ).hide();
 $( "#Speciescdiv" ).hide();
 $( "#Port" ).checkboxradio({icon: false});
-//$( "#Porttdiv" ).hide();
 $( "#Portcode" ).checkboxradio({icon: false});
 $( "#Prov" ).checkboxradio({icon: false});
 $( "#Bait" ).checkboxradio({icon: false});
@@ -1084,16 +1068,9 @@ $( "#Workshop" ).show();
 $( "#More" ).checkboxradio({icon: false});
 $( "#More" ).show();
 
-
 $( "#tabs" ).tabs();
-//$( "#dragdatatype" ).draggable();
-//$( "#dragdatatype2" ).draggable();
-
-  $("#entQuery").hide();
-  $("#strict, label[for=strict]").hide();
-
-
-
+$("#entQuery").hide();
+$("#strict, label[for=strict]").hide();
 
 $( "#sortable1, #sortable2" ).sortable({
   connectWith: ".connectedSortable"
@@ -1548,7 +1525,16 @@ if(dl != ""){
 	  }else{}
     });
   });
+$("#backup").click(function(){
+var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
+	  if(mes == false){
+	    alert(mes);
+	  }else{}
+	   $('#mesbak').val($('#mesbak').val()+mes);
 
+    });
+
+})
   $("#btnSubmit").click(function(){
     var check = $('#rec').prop("checked");
 	  var req = ocpu.rpc("r.choosedir",{sub: check, def: dl }, function(mes){
@@ -2038,6 +2024,7 @@ if(dl != ""){
 </fieldset>
 <br><br>
 <input id = "entSubmit" class="ui-button-alpha" type="submit" value="Enter Data"/>
+<input id = "backup" class="ui-button-alpha" type="submit" value="Backup"/>
 <input id = "entQuery" class="ui-button-alpha" type="submit" value="Query Data"/>
 
 <input type="checkbox" id="strict" name="strict" unchecked="">
@@ -2818,6 +2805,7 @@ if(target[ 0 ].id == "other"){
 }
 $('a[href="#retrieve"]').on('click', function() {
      $("#entSubmit").hide();
+     $("#backup").hide();
      $("#entQuery").show();
 
       $("#strict, label[for=strict]").show();
@@ -2825,6 +2813,7 @@ $('a[href="#retrieve"]').on('click', function() {
 
 $('a[href="#enter"]').on('click', function() {
   $("#entSubmit").show();
+  $("#backup").show();
   $("#entQuery").hide();
 
    $("#strict, label[for=strict]").hide();
