@@ -70,6 +70,95 @@ r.backup <- function(def = "L:/"){
 
 }
 
+#' @title  r.remove
+#' @description  Function allows removal of uri from Oracle tables
+#' @import ROracle DBI jsonlite opencpu
+#' @return message to webpage
+#' @export
+r.remove <- function(uri = ""){
+  if(uri == ""){
+    return("No URI supplied")
+  }
+  drv <- DBI::dbDriver("Oracle")
+  con <- ROracle::dbConnect(drv, username = oracle.username, password = oracle.password, dbname = oracle.server)
+
+  result = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  result2 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_COMMUNITY where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result2, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  result3 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_LFA where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result3, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  result4 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_NAME where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result4, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  result5 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_PORT where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result5, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  result6 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_PROVINCE where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result6, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  result7 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_SPECIES where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result7, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+
+  result8 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_STATDIST where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result8, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+
+  result9 = ROracle::dbSendQuery(con, paste("Delete from LOBSTER.LOBSTERARCHIVE_YEAR where uri = '", uri, "'", sep=""))
+  if(ROracle::dbGetInfo(result9, what = "rowsAffected") > 1){
+    ROracle::dbRollback(con)
+    ROracle::dbDisconnect(con)
+    return("dubious deletion -- rolling back transaction")
+  }
+  ROracle::dbCommit(con)
+
+  ROracle::dbClearResult(result)
+  ROracle::dbClearResult(result2)
+  ROracle::dbClearResult(result3)
+  ROracle::dbClearResult(result4)
+  ROracle::dbClearResult(result5)
+  ROracle::dbClearResult(result6)
+  ROracle::dbClearResult(result7)
+  ROracle::dbClearResult(result8)
+  ROracle::dbClearResult(result9)
+
+
+  ROracle::dbDisconnect(con)
+
+  return(paste("Tables purged of URI: ", uri, sep=""))
+
+}
+
+
+
 #' @title  r.choosedir
 #' @description  Function that allows the opening of a folder browser
 #' @import ROracle DBI jsonlite opencpu

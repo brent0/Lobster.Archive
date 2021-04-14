@@ -259,15 +259,12 @@ input[type="checkbox" i] {
 </style>
 
 <script>
+
+var availableURI = [];
+
 var dl = "";
-
-
-
-
-
-
- var maintab = [];
- function filtermt(maint, keyname, matchvalue) {
+var maintab = [];
+function filtermt(maint, keyname, matchvalue) {
 var retval = []
 for (j = 0; j < matchvalue.length; j++) {
   for(i in maint){
@@ -370,6 +367,9 @@ $( "#selectable").selectable();
   $( "#btnSubmit2" ).button();
   $( "#entSubmit" ).button();
   $( "#entSubmit" ).attr('title', 'Associate selected tags to the files listed in the right pane in oracle tables');
+  $( "#remSubmit" ).button();
+  $( "#remSubmit" ).attr('title', 'CAUTION: Removes selected items from the oracle tables!!');
+
   $( "#backup" ).button();
   $("#backup").attr('title', 'This will backup oracle tables to the mapped L drive');
   $( "#entQuery" ).button();
@@ -472,7 +472,24 @@ $( "#namet" ).focus(function() {
 
 });
 
+var req = ocpu.rpc("autoavailable",{column: "URI"}, function(output){
+  var obj = JSON.parse(output);
+	for (var j in obj){
 
+	  	  if(obj[j]["URI"] != null){
+				  availableURI.push(obj[j]["URI"]);
+				}
+	}
+})
+$( "#urirem" ).focus(function() {
+
+			$( "#urirem" ).autocomplete({
+			  minLength: 0,
+        source: availableURI
+})
+   	$( "#urirem" ).autocomplete("search", $("#urirem").val());
+
+});
 
 
 var availableAbstract = [];
@@ -1264,6 +1281,29 @@ if(dl != ""){
 
 
 });
+
+$("#remSubmit").click(function(){
+  var rem = urirem.value;
+
+ var req = ocpu.rpc("r.remove",{uri:rem}, function(mes){
+
+
+    if(mes == false){
+
+		     $('#mesbak').val($('#mesbak').val()+mes);
+
+		}
+		else{
+		   availableURI = availableURI.filter(e => e !== $( "#urirem" ).val());
+       $( "#urirem" ).val("");
+		   $('#mesbak').val($('#mesbak').val()+mes);
+
+
+    }
+  });
+
+});
+
 $("#entSubmit").click(function(){
   var firstnames = "";
   var lastnames = "";
@@ -1438,7 +1478,9 @@ if(dl != ""){
 
     }
   });
+    availableURI.unshift(sortable2.children[0].getAttribute('value'));
     sortable2.removeChild(sortable2.children[0]);
+
 }
 
 });
@@ -2029,6 +2071,9 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 
 <input type="checkbox" id="strict" name="strict" unchecked="">
 <label for="strict">STRICT</label>
+
+
+
  </div>
 </div>
 
@@ -2036,9 +2081,15 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 
 
 
-		<textarea style="width: 67%;margin-left: 12px;" rows="20" name="mesbak" id="mesbak">
+		<textarea style="width: 67%;margin-left: 12px; margin-top: 8px;" rows="20" name="mesbak" id="mesbak">
 MESSAGE CONSOLE
 </textarea>
+ <fieldset id = "rem" style="color: #e80f0f; border-color: #e80f0f; position: absolute;">
+  <legend>Remove:</legend>
+   <input type="text" name="urirem" id="urirem" style="width:170px;">
+<input id = "remSubmit" class="ui-button-alpha" type="submit" value="Delete"/>
+
+  </fieldset>
 </div>
 
 <script>
