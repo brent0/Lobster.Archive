@@ -1032,6 +1032,8 @@ $( "#Newfoundland" ).checkboxradio({icon: false});
 $( "#Newfoundland" ).show();
 $( "#Newspaper" ).checkboxradio({icon: false});
 $( "#Newspaper" ).show();
+$( "#Notentered" ).checkboxradio({icon: false});
+$( "#Notentered" ).show();
 $( "#Offshore" ).checkboxradio({icon: false});
 $( "#Offshore" ).show();
 $( "#Fishingpositions" ).checkboxradio({icon: false});
@@ -1207,6 +1209,7 @@ for(i=0; i < xx.length; i++){
 
          $(Newfoundland).is(":visible") && $(Newfoundland).is(":checked") ? Nf = "Y": Nf = "N"
          $(Newspaper).is(":visible") && $(Newspaper).is(":checked") ? Ne = "Y": Ne = "N"
+         $(Notentered).is(":visible") && $(Notentered).is(":checked") ? No = "Y": No = "N"
          $(Offshore).is(":visible") && $(Offshore).is(":checked") ? Of = "Y": Of = "N"
             $(Fishingpositions).is(":visible") && $(Fishingpositions).is(":checked") ? Fi =  "Y": Fi = "N"
          $(Partial).is(":visible") && $(Partial).is(":checked") ? Pa = "Y": Pa = "N"
@@ -1245,7 +1248,7 @@ var strict = "OR";
 if($('#strict').prop("checked")){
   strict = "AND";
 }
-  var req = ocpu.rpc("r.read",{proj:proj, years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Ma:Ma, Mu:Mu, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Tag:Tag, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict}, function(mes){
+  var req = ocpu.rpc("r.read",{proj:proj, years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Ma:Ma, Mu:Mu, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Tag:Tag, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict}, function(mes){
 
 
     if(mes == false){
@@ -1419,6 +1422,8 @@ for(i=0; i < xx.length; i++){
 
          $(Newfoundland).is(":visible") && $(Newfoundland).is(":checked") ? Nf = "Y": Nf = "N"
          $(Newspaper).is(":visible") && $(Newspaper).is(":checked") ? Ne = "Y": Ne = "N"
+        $(Notentered).is(":visible") && $(Notentered).is(":checked") ? No = "Y": No = "N"
+
          $(Offshore).is(":visible") && $(Offshore).is(":checked") ? Of = "Y": Of = "N"
             $(Fishingpositions).is(":visible") && $(Fishingpositions).is(":checked") ? Fi =  "Y": Fi = "N"
          $(Partial).is(":visible") && $(Partial).is(":checked") ? Pa = "Y": Pa = "N"
@@ -1463,7 +1468,7 @@ if(dl != ""){
   uri = uri.replace(dl, "L:/")
 }
 
-  var req = ocpu.rpc("r.write",{proj:proj, years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Ma:Ma, Mu:Mu, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Tag:Tag, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo}, function(mes){
+  var req = ocpu.rpc("r.write",{proj:proj, years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Ma:Ma, Mu:Mu, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Tag:Tag, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo}, function(mes){
 
 
     if(mes == false){
@@ -1905,6 +1910,9 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 <label class = "check2" for="Newspaper">Newspaper</label>
    <input type="checkbox" name="Newspaper" id="Newspaper">
 
+<label class = "check2" for="Notentered">Not Entered</label>
+   <input type="checkbox" name="Notentered" id="Notentered">
+
 <label class = "check2" for="Offshore">Offshore</label>
    <input type="checkbox" name="Offshore" id="Offshore">
 
@@ -2162,6 +2170,7 @@ $(More).click(function(){
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").show();
+        $("#Notentered, label[for=Notentered]").show();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").show();
         $("#Porttdiv, #Port, label[for=Port]").show();
@@ -2248,6 +2257,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Notentered, label[for=Notentered]").show();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").hide();
 
@@ -2329,6 +2339,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").show();
+         $("#Notentered, label[for=Notentered]").hide();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").hide();
         $("#Porttdiv, #Port, label[for=Port]").hide();
@@ -2410,6 +2421,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Notentered, label[for=Notentered]").hide();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").show();
         $("#Porttdiv, #Port, label[for=Port]").hide();
@@ -2490,6 +2502,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Notentered, label[for=Notentered]").show();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").hide();
         $("#Porttdiv, #Port, label[for=Port]").show();
@@ -2573,6 +2586,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Notentered, label[for=Notentered]").show();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").hide();
         $("#Porttdiv, #Port, label[for=Port]").show();
@@ -2653,6 +2667,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Notentered, label[for=Notentered]").show();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").hide();
         $("#Porttdiv, #Port, label[for=Port]").hide();
@@ -2734,6 +2749,7 @@ function filteropts( e ) {
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").hide();
+        $("#Notentered, label[for=Notentered]").hide();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").hide();
         $("#Porttdiv, #Port, label[for=Port]").hide();
@@ -2816,6 +2832,7 @@ if(target[ 0 ].id == "other"){
         $("#Name, label[for=Name]").show();
         $("#Newfoundland, label[for=Newfoundland]").show();
         $("#Newspaper, label[for=Newspaper]").show();
+        $("#Notentered, label[for=Notentered]").show();
         $("#Offshore, label[for=Offshore]").show();
         $("#Pages, label[for=Pages]").show();
         $("#Porttdiv, #Port, label[for=Port]").show();
