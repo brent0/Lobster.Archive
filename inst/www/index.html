@@ -321,7 +321,7 @@ $("#messopts2").dialog({
 					buttons: {
 					  "Ok": function() {
 						  $(this).dialog("close");
-						  window.close();
+
 						}
                 }
             });
@@ -1339,6 +1339,11 @@ $("#remSubmit").click(function(){
        $( "#urirem" ).val("");
 		   $('#mesbak').val($('#mesbak').val()+mes);
 
+
+        var x = $("<div class='ui-state-highlight' value = '"+rem+"'>'"+rem+"'<span class='handle'></span></div>");
+        $("#sortable1").append(x);
+
+      $("#sortable1").sortable('refresh');
 
     }
   });
