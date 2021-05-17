@@ -1004,6 +1004,8 @@ $( "#Dive" ).checkboxradio({icon: false});
 $( "#Dive" ).show();
 $( "#Dredge" ).checkboxradio({icon: false});
 $( "#Dredge" ).show();
+$( "#Eggdata" ).checkboxradio({icon: false});
+$( "#Eggdata" ).show();
 $( "#Effort" ).checkboxradio({icon: false});
 $( "#Effort" ).show();
 $( "#Environmentalconditions" ).checkboxradio({icon: false});
@@ -1201,6 +1203,7 @@ for(i=0; i < xx.length; i++){
 
          $(Dive).is(":visible") && $(Dive).is(":checked") ?  Dv = "Y":  Dv = "N"
          $(Dredge).is(":visible") && $(Dredge).is(":checked") ? Dr = "Y": Dr = "N"
+         $(Eggdata).is(":visible") && $(Eggdata).is(":checked") ?  Ed = "Y":  Ed = "N"
          $(Effort).is(":visible") && $(Effort).is(":checked") ?  Ef = "Y":  Ef = "N"
          $(Environmentalconditions).is(":visible") && $(Environmentalconditions).is(":checked") ? En = "Y": En = "N"
          $(Framework).is(":visible") && $(Framework).is(":checked") ? Fr = "Y": Fr = "N"
@@ -1288,10 +1291,10 @@ var strict = "OR";
 if($('#strict').prop("checked")){
   strict = "AND";
 }
-  var req = ocpu.rpc("r.read",{years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
+  var req = ocpu.rpc("r.read",{years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ed:Ed, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
 
 
-    if(mes == false){
+     if(mes.includes("Error")){
 
 		     $('#mesbak').val($('#mesbak').val()+mes);
 
@@ -1331,7 +1334,7 @@ $("#remSubmit").click(function(){
  var req = ocpu.rpc("r.remove",{uri:rem}, function(mes){
 
 
-    if(mes == false){
+    if(mes.includes("Error")){
 
 		     $('#mesbak').val($('#mesbak').val()+mes);
 
@@ -1442,6 +1445,7 @@ for(i=0; i < xx.length; i++){
 
          $(Dive).is(":visible") && $(Dive).is(":checked") ?  Dv = "Y":  Dv = "N"
          $(Dredge).is(":visible") && $(Dredge).is(":checked") ? Dr = "Y": Dr = "N"
+         $(Eggdata).is(":visible") && $(Eggdata).is(":checked") ?  Ed = "Y":  Ed = "N"
          $(Effort).is(":visible") && $(Effort).is(":checked") ?  Ef = "Y":  Ef = "N"
          $(Environmentalconditions).is(":visible") && $(Environmentalconditions).is(":checked") ? En = "Y": En = "N"
          $(Framework).is(":visible") && $(Framework).is(":checked") ? Fr = "Y": Fr = "N"
@@ -1538,10 +1542,10 @@ if(dl != ""){
   uri = uri.replace(dl, "L:/")
 }
 
-  var req = ocpu.rpc("r.write",{years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
+  var req = ocpu.rpc("r.write",{years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ed:Ed, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
 
 
-    if(mes == false){
+    if(mes.includes("Error")){
 
 		     $('#mesbak').val($('#mesbak').val()+mes);
 
@@ -1915,6 +1919,9 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 <label class = "check2" for="Dredge">Dredge</label>
    <input type="checkbox" name="Dredge" id="Dredge">
 
+<label class = "check2" for="Eggdata">Egg Data</label>
+   <input type="checkbox" name="Eggdata" id="Eggdata">
+
 <label class = "check2" for="Effort">Effort</label>
    <input type="checkbox" name="Effort" id="Effort">
 
@@ -2218,6 +2225,7 @@ $(More).click(function(){
         $("#District, label[for=District]").show();
         $("#Dive, label[for=Dive]").show();
         $("#Dredge, label[for=Dredge]").show();
+        $("#Eggdata, label[for=Eggdata]").show();
         $("#Effort, label[for=Effort]").show();
         $("#Environmentalconditions, label[for=Environmentalconditions]").show();
         $("#Framework, label[for=Framework]").show();
@@ -2304,6 +2312,7 @@ function filteropts( e ) {
         $("#District, label[for=District]").hide();
         $("#Dive, label[for=Dive]").hide();
         $("#Dredge, label[for=Dredge]").hide();
+        $("#Eggdata, label[for=Eggdata]").hide();
         $("#Effort, label[for=Effort]").hide();
         $("#Environmentalconditions, label[for=Environmentalconditions]").hide();
         $("#Framework, label[for=Framework]").hide();
@@ -2427,6 +2436,7 @@ function filteropts( e ) {
         $("#Correspondance, label[for=Correspondance]").show();
         $("#Cusk, label[for=Cusk]").show();
         $("#District, label[for=District]").show();
+        $("#Eggdata, label[for=Eggdata]").show();
         $("#Environmentalconditions, label[for=Environmentalconditions]").show();
         $("#Framework, label[for=Framework]").show();
         $("#Gulf, label[for=Gulf]").show();
@@ -2581,6 +2591,7 @@ function filteropts( e ) {
         $("#Depth, label[for=Depth]").show();
         $("#District, label[for=District]").show();
         $("#Dredge, label[for=Dredge]").show();
+        $("#Eggdata, label[for=Eggdata]").show();
         $("#Effort, label[for=Effort]").show();
         $("#Environmentalconditions, label[for=Environmentalconditions]").show();
         $("#Gearspecifications, label[for=Gearspecifications]").show();
