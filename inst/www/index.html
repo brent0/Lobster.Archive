@@ -1695,27 +1695,19 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 
 });
 
- window.onload = function () {
-        window.addEventListener("beforeunload", function (e) {
-        var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
-	      if(mes == false){
-	        return 'Backup Failed!! ' + mes;
-	      }else{
-	       return mes + '  BYE!';
-    	  }
-        });
+// window.onload = function () {
+//        window.addEventListener("beforeunload", function (e) {
+//        var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
+//	      if(mes == false){
+//	        return 'Backup Failed!! ' + mes;
+//	      }else{
+//	       return mes + '  BYE!';
+//    	  }
+//        });
+//
+//        });
+//    };
 
-        });
-    };
-
-
-var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
-	  if(mes == false){
-	    alert("Backup Failed!! " + mes);
-	  }else{
-	   $('#mesbak').val($('#mesbak').val()+mes);
-     alert(mes = "  BYE!");
-	  }
 });
 
 
