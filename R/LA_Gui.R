@@ -301,7 +301,7 @@ r.getPreview <- function(flist){
 #' @import ROracle DBI jsonlite opencpu
 #' @return message to webpage
 #' @export
-r.write = function(years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cr, Cu, De, Dv, Dr, Ed, Ef, En, Fr, Ge, Gu, Hi, Im, In, Id, It, Jo, La, Le, Li, Lo, Mg, Ma, Mt, Mi, Mo, Ms, Nf, Ne, No, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Rp, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Us, Vi, Vn, Vo, Wo, sur, doc, man, lan, por, sea, tag, oth){
+r.write = function(years, uri, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cm, Cl, Co, Cr, Cu, De, Dv, Dr, Ed, Ef, En, Fr, Ge, Gu, Hi, Im, In, Id, It, Jo, La, Le, Li, Lo, Mg, Mp, Ma, Mt, Mi, Mo, Ms, Nf, Ne, No, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Rp, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Us, Vi, Vn, Vo, Wo, sur, doc, man, lan, por, sea, tag, oth){
   out = ""
   out = paste(out," File: ", uri, sep = "")
 
@@ -487,8 +487,8 @@ r.write = function(years, uri, firstnames, lastnames, lfas, districts, sdistrict
   abstractname = gsub("'", "''", abstractname)
 
 
-  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  COLLECTORS,  CORRESPONDANCE, CRIS, CUSK,  DEPTH,  DIVE,  DREDGE, EGG_DATA, EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS, GULF_ST_LAWRENCE,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ, LIFE_HISTORY, LOBSTER_CL_DB, MANAGEMENT_MEASURES, MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC, NEWFOUNDLAND, NEWSPAPER, NOTENTERED,  OFFSHORE,  FISHING_POSITIONS, PARTIALLY_ENTERED, POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW, REPORT, SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION, TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT, UNITED_STATES,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR, SURVEY, DOCUMENT, MANUSCRIPT, LANDINGSRECORD, PORTSAMPLE, ATSEASAMPLE, TAGGING, OTHER)
-                              VALUES( '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cl,"' , '",Co,"' , '",Cr,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ed,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Gu,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Li,"' , '",Lo,"' , '",Mg,"' , '",Ma,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Nf,"' , '",Ne,"' , '",No,"' , '",Of,"' , '",Fi,"' , '",Pa,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Rp,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Us,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"' , '",sur,"' , '",doc,"' , '",man,"' , '",lan,"' , '",por,"' , '",sea,"' , '",tag,"' , '",oth,"')", sep = "")
+  wri = paste("INSERT INTO LOBSTER.LOBSTERARCHIVE(URI,  DOCUMENT_NAME,  PAGES,  ABSTRACT,  ADVISORY_COMMITTEE,  AERIAL,  ASSESSMENT,  BAIT,  BYCATCH,  CATCH,  CATCH_SUMMARY,  CATCHABILITY,  CODES_METADATA, COLLECTORS,  CORRESPONDANCE, CRIS, CUSK,  DEPTH,  DIVE,  DREDGE, EGG_DATA, EFFORT,  ENVIRONMENTAL_CONDITIONS,  FRAMEWORK,  GEAR_SPECIFICATIONS, GULF_ST_LAWRENCE,  HISTORICAL,  IMAGES,  IN_ORACLE,  INDIGENOUS,  INTERVIEW,  JOURNAL,  LARVAE,  LENGTH_FREQ, LIFE_HISTORY, LOBSTER_CL_DB, MANAGEMENT_MEASURES, MAP, MANDATORY_LOGBOOK,  MATURITY,  MINUTES,  MORPHOMETRICS,  MSC, NEWFOUNDLAND, NEWSPAPER, NOTENTERED,  OFFSHORE,  FISHING_POSITIONS, PARTIALLY_ENTERED, POSTER,  PRICE,  PROCEEDINGS,  RAW_DATA,  REVIEW, REPORT, SET_DETAILS_SUMMARY,  SLIP_WEIGHTS,  SOAK_TIME,  SUBSTRATE,  SUCTION, TEMPERATURE,  THESIS,  TRAP_BASED_SURVEY,  TRAWL,  UPDAT, UNITED_STATES,  VIDEO,  V_NOTCH,  VOLUNTARY_LOGBOOK,  WORKSHOP_SEMINAR, SURVEY, DOCUMENT, MANUSCRIPT, LANDINGSRECORD, PORTSAMPLE, ATSEASAMPLE, TAGGING, OTHER)
+                              VALUES( '",uri,"' , '",docname,"' , '",pagesname,"' , '",abstractname,"' , '",Ad,"' , '",Ar,"' , '",As,"' , '",Ba,"' , '",By,"' , '",Ca,"' , '",Cs,"' , '",Ct,"' , '",Cm,"' , '",Cl,"' , '",Co,"' , '",Cr,"' , '",Cu,"' , '",De,"' , '",Dv,"' , '",Dr,"' , '",Ed,"' , '",Ef,"' , '",En,"' , '",Fr,"' , '",Ge,"' , '",Gu,"' , '",Hi,"' , '",Im,"' , '",In,"' , '",Id,"' , '",It,"' , '",Jo,"' , '",La,"' , '",Le,"' , '",Li,"' , '",Lo,"' , '",Mg,"' , '",Mp,"' , '",Ma,"' , '",Mt,"' , '",Mi,"' , '",Mo,"' , '",Ms,"' , '",Nf,"' , '",Ne,"' , '",No,"' , '",Of,"' , '",Fi,"' , '",Pa,"' , '",Po,"' , '",Pr,"' , '",Pc,"' , '",Ra,"' , '",Re,"' , '",Rp,"' , '",Se,"' , '",Sl,"' , '",So,"' , '",Su,"' , '",Sc,"' , '",Te,"' , '",Ts,"' , '",Tr,"' , '",Ta,"' , '",Up,"' , '",Us,"' , '",Vi,"' , '",Vn,"' , '",Vo,"' , '",Wo,"' , '",sur,"' , '",doc,"' , '",man,"' , '",lan,"' , '",por,"' , '",sea,"' , '",tag,"' , '",oth,"')", sep = "")
 
   rs = ROracle::dbSendQuery(con, wri)
   if(ROracle::dbGetInfo(rs, what = "rowsAffected") == 1){
@@ -514,7 +514,7 @@ r.write = function(years, uri, firstnames, lastnames, lfas, districts, sdistrict
 #' @import ROracle DBI jsonlite opencpu
 #' @return list of uri's to webpage
 #' @export
-r.read = function(years, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cl, Co, Cr, Cu, De, Dv, Dr, Ed, Ef, En, Fr, Ge, Gu, Hi, Im, In, Id, It, Jo, La, Le, Li, Lo, Mg, Ma, Mt, Mi, Mo, Ms, Nf, Ne, No, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Rp, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Us, Vi, Vn, Vo, Wo, strict, sur, doc, man, lan, por, sea, tag, oth){
+r.read = function(years, firstnames, lastnames, lfas, districts, sdistricts, communities, portcodes, codeports, provinces, docname, abstractname, pagesname, speciesnames, speciescodes, Ad, Ar, As, Ba, By, Ca, Cs, Ct, Cm, Cl, Co, Cr, Cu, De, Dv, Dr, Ed, Ef, En, Fr, Ge, Gu, Hi, Im, In, Id, It, Jo, La, Le, Li, Lo, Mg, Mp, Ma, Mt, Mi, Mo, Ms, Nf, Ne, No, Of, Fi, Pa, Po, Pr, Pc, Ra, Re, Rp, Se, Sl, So, Su, Sc, Te, Ts, Tr, Ta, Up, Us, Vi, Vn, Vo, Wo, strict, sur, doc, man, lan, por, sea, tag, oth){
 
   drv = DBI::dbDriver("Oracle")
   con = ROracle::dbConnect(drv, username = oracle.username, password = oracle.password, dbname = oracle.server)
@@ -870,6 +870,9 @@ r.read = function(years, firstnames, lastnames, lfas, districts, sdistricts, com
   if(Ct == "Y"){
     query = paste(query, strict, " CATCHABILITY = '", Ct, "' ", sep = "")
   }
+  if(Cm == "Y"){
+    query = paste(query, strict, " CODES_METADATA = '", Cm, "' ", sep = "")
+  }
   if(Cl == "Y"){
     query = paste(query, strict, " COLLECTORS = '", Cl, "' ", sep = "")
   }
@@ -941,6 +944,9 @@ r.read = function(years, firstnames, lastnames, lfas, districts, sdistricts, com
   }
   if(Ma == "Y"){
     query = paste(query, strict, " MANDATORY_LOGBOOK = '", Ma, "' ", sep = "")
+  }
+  if(Mp == "Y"){
+    query = paste(query, strict, " MAP = '", Mp, "' ", sep = "")
   }
   if(Mg == "Y"){
     query = paste(query, strict, " MANAGEMENT_MEASURES = '", Mg, "' ", sep = "")

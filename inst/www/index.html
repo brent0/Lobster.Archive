@@ -990,6 +990,8 @@ $( "#CatchSummary" ).checkboxradio({icon: false});
 $( "#CatchSummary" ).hide();
 $( "#Catchability" ).checkboxradio({icon: false});
 $( "#Catchability" ).hide();
+$( "#CodeMeta" ).checkboxradio({icon: false});
+$( "#CodeMeta" ).hide();
 $( "#Collectors" ).checkboxradio({icon: false});
 $( "#Collectors" ).hide();
 $( "#Correspondance" ).checkboxradio({icon: false});
@@ -1038,6 +1040,8 @@ $( "#Lobstercldb" ).checkboxradio({icon: false});
 $( "#Lobstercldb" ).show();
 $( "#Managementmeasures" ).checkboxradio({icon: false});
 $( "#Managementmeasures" ).show();
+$( "#Mapopt" ).checkboxradio({icon: false});
+$( "#Mapopt" ).show();
 $( "#Mandatorylogbook" ).checkboxradio({icon: false});
 $( "#Mandatorylogbook" ).show();
 $( "#Maturity" ).checkboxradio({icon: false});
@@ -1194,6 +1198,7 @@ for(i=0; i < xx.length; i++){
         $(Catch).is(":visible") && $(Catch).is(":checked") ? Ca = "Y": Ca = "N"
         $(CatchSummary).is(":visible") && $(CatchSummary).is(":checked") ? Cs =  "Y": Cs = "N"
         $(Catchability).is(":visible") && $(Catchability).is(":checked") ? Ct = "Y": Ct = "N"
+        $(CodeMeta).is(":visible") && $(CodeMeta).is(":checked") ? Cm = "Y": Cm = "N"
         $(Collectors).is(":visible") && $(Collectors).is(":checked") ?  Cl = "Y":  Cl = "N"
         $(Correspondance).is(":visible") && $(Correspondance).is(":checked") ? Co = "Y": Co = "N"
         $(Cris).is(":visible") && $(Cris).is(":checked") ? Cr = "Y": Cr = "N"
@@ -1220,6 +1225,7 @@ for(i=0; i < xx.length; i++){
          $(Lifehist).is(":visible") && $(Lifehist).is(":checked") ?  Li = "Y":  Li = "N"
          $(Lobstercldb).is(":visible") && $(Lobstercldb).is(":checked") ?  Lo = "Y":  Lo = "N"
          $(Managementmeasures).is(":visible") && $(Managementmeasures).is(":checked") ? Mg = "Y": Mg = "N"
+         $(Mapopt).is(":visible") && $(Mapopt).is(":checked") ? Mp = "Y": Mp = "N"
          $(Mandatorylogbook).is(":visible") && $(Mandatorylogbook).is(":checked") ? Ma = "Y": Ma = "N"
          $(Maturity).is(":visible") && $(Maturity).is(":checked") ? Mt = "Y": Mt = "N"
          $(Minutes).is(":visible") && $(Minutes).is(":checked") ? Mi = "Y": Mi = "N"
@@ -1291,7 +1297,7 @@ var strict = "OR";
 if($('#strict').prop("checked")){
   strict = "AND";
 }
-  var req = ocpu.rpc("r.read",{years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ed:Ed, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
+  var req = ocpu.rpc("r.read",{years:years, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cm:Cm, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ed:Ed, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Mp:Mp, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, strict:strict, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
 
 
      if(mes.includes("Error")){
@@ -1436,6 +1442,8 @@ for(i=0; i < xx.length; i++){
         $(Catch).is(":visible") && $(Catch).is(":checked") ? Ca = "Y": Ca = "N"
         $(CatchSummary).is(":visible") && $(CatchSummary).is(":checked") ? Cs =  "Y": Cs = "N"
         $(Catchability).is(":visible") && $(Catchability).is(":checked") ? Ct = "Y": Ct = "N"
+        $(CodeMeta).is(":visible") && $(CodeMeta).is(":checked") ? Cm = "Y": Cm = "N"
+
         $(Collectors).is(":visible") && $(Collectors).is(":checked") ?  Cl = "Y":  Cl = "N"
         $(Correspondance).is(":visible") && $(Correspondance).is(":checked") ? Co = "Y": Co = "N"
         $(Cris).is(":visible") && $(Cris).is(":checked") ? Cr = "Y": Cr = "N"
@@ -1463,6 +1471,7 @@ for(i=0; i < xx.length; i++){
          $(Lifehist).is(":visible") && $(Lifehist).is(":checked") ?  Li = "Y":  Li = "N"
          $(Lobstercldb).is(":visible") && $(Lobstercldb).is(":checked") ?  Lo = "Y":  Lo = "N"
           $(Managementmeasures).is(":visible") && $(Managementmeasures).is(":checked") ? Mg = "Y": Mg = "N"
+          $(Mapopt).is(":visible") && $(Mapopt).is(":checked") ? Mp = "Y": Mp = "N"
          $(Mandatorylogbook).is(":visible") && $(Mandatorylogbook).is(":checked") ? Ma = "Y": Ma = "N"
          $(Maturity).is(":visible") && $(Maturity).is(":checked") ? Mt = "Y": Mt = "N"
          $(Minutes).is(":visible") && $(Minutes).is(":checked") ? Mi = "Y": Mi = "N"
@@ -1542,7 +1551,7 @@ if(dl != ""){
   uri = uri.replace(dl, "L:/")
 }
 
-  var req = ocpu.rpc("r.write",{years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ed:Ed, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
+  var req = ocpu.rpc("r.write",{years:years, uri:uri, firstnames:firstnames, lastnames:lastnames, lfas:lfas, districts:districts, sdistricts:sdistricts, communities:communities, portcodes:portcodes, codeports:codeports, provinces:provinces, docname:docname, abstractname:abstractname, pagesname:pagesname, speciesnames:speciesnames, speciescodes:speciescodes, Ad:Ad, Ar:Ar, As:As, Ba:Ba, By:By, Ca:Ca, Cs:Cs, Ct:Ct, Cm:Cm, Cl:Cl, Cr:Cr, Co:Co, Cu:Cu, De:De, Dv:Dv, Dr:Dr, Ed:Ed, Ef:Ef, En:En, Fr:Fr, Ge:Ge, Gu:Gu, Hi:Hi, Im:Im, In:In, Id:Id, It:It, Jo:Jo, La:La, Le:Le, Li:Li, Lo:Lo, Mg:Mg, Mp:Mp, Ma:Ma, Mt:Mt, Mi:Mi, Mo:Mo, Ms:Ms, Nf:Nf, Ne:Ne, No:No, Of:Of, Fi:Fi, Pa:Pa, Po:Po, Pr:Pr, Pc:Pc, Ra:Ra, Re:Re, Rp:Rp, Se:Se, Sl:Sl, So:So, Su:Su, Sc:Sc, Te:Te, Ts:Ts, Tr:Tr, Ta:Ta, Up:Up, Us:Us, Vi:Vi, Vn:Vn, Vo:Vo, Wo:Wo, sur:sur, doc:doc, man:man, lan:lan, por:por, sea:sea, tag:tag, oth:oth}, function(mes){
 
 
     if(mes.includes("Error")){
@@ -1685,6 +1694,31 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 });
 
 });
+
+ window.onload = function () {
+        window.addEventListener("beforeunload", function (e) {
+        var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
+	      if(mes == false){
+	        return 'Backup Failed!! ' + mes;
+	      }else{
+	       return mes + '  BYE!';
+    	  }
+        });
+
+        });
+    };
+
+
+var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
+	  if(mes == false){
+	    alert("Backup Failed!! " + mes);
+	  }else{
+	   $('#mesbak').val($('#mesbak').val()+mes);
+     alert(mes = "  BYE!");
+	  }
+});
+
+
 </script>
 
 </head>
@@ -1898,6 +1932,9 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 <label class = "check2" for="Catchability">Catchability</label>
    <input type="checkbox" name="Catchability" id="Catchability">
 
+<label class = "check2" for="CodeMeta">Codes / Metadata</label>
+   <input type="checkbox" name="CodeMeta" id="CodeMeta">
+
 <label class = "check2" for="Collectors">Collectors</label>
    <input type="checkbox" name="Collectors" id="Collectors">
 
@@ -1972,6 +2009,9 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 
 <label class = "check2" for="Managementmeasures">Management Measures</label>
    <input type="checkbox" name="Managementmeasures" id="Managementmeasures">
+
+   <label class = "check2" for="Mapopt">Map</label>
+   <input type="checkbox" name="Mapopt" id="Mapopt">
 
 <label class = "check2" for="Mandatorylogbook">Mandatory Logbook</label>
    <input type="checkbox" name="Mandatorylogbook" id="Mandatorylogbook">
@@ -2217,6 +2257,7 @@ $(More).click(function(){
         $("#Catch, label[for=Catch]").show();
         $("#CatchSummary, label[forCatchSummary]").show();
         $("#Catchability, label[for=Catchability]").show();
+        $("#CodeMeta, label[for=CodeMeta]").show();
         $("#Collectors, label[for=Collectors]").show();
         $("#Correspondance, label[for=Correspondance]").show();
         $("#Cris, label[for=Cris]").show();
@@ -2242,6 +2283,7 @@ $(More).click(function(){
         $("#Lifehist, label[for=Lifehist]").show();
         $("#Lobstercldb, label[for=Lobstercldb]").show();
         $("#Managementmeasures, label[for=Managementmeasures]").show();
+        $("#Mapopt, label[for=Mapopt]").show();
         $("#Mandatorylogbook, label[for=Mandatorylogbook]").show();
         $("#Maturity, label[for=Maturity]").show();
         $("#Minutes, label[for=Minutes]").show();
@@ -2304,6 +2346,7 @@ function filteropts( e ) {
         $("#Catch, label[for=Catch]").hide();
         $("#CatchSummary, label[forCatchSummary]").hide();
         $("#Catchability, label[for=Catchability]").hide();
+        $("#CodeMeta, label[for=CodeMeta]").hide();
         $("#Collectors, label[for=Collectors]").hide();
         $("#Correspondance, label[for=Correspondance]").hide();
         $("#Cris, label[for=Cris]").hide();
@@ -2329,6 +2372,7 @@ function filteropts( e ) {
         $("#Lifehist, label[for=Lifehist]").hide();
         $("#Lobstercldb, label[for=Lobstercldb]").hide();
         $("#Managementmeasures, label[for=Managementmeasures]").hide();
+        $("#Mapopt, label[for=Mapopt]").hide();
         $("#Mandatorylogbook, label[for=Mandatorylogbook]").hide();
         $("#Maturity, label[for=Maturity]").hide();
         $("#Minutes, label[for=Minutes]").hide();
@@ -2431,6 +2475,7 @@ function filteropts( e ) {
         $("#Bycatch, label[for=Bycatch]").show();
         $("#CatchSummary, label[forCatchSummary]").show();
         $("#Catchability, label[for=Catchability]").show();
+        $("#CodeMeta, label[for=CodeMeta]").show();
         $("#Collectors, label[for=Collectors]").show();
         $("#lfa, label[for=lfa]").show();
         $("#Correspondance, label[for=Correspondance]").show();
@@ -2447,6 +2492,7 @@ function filteropts( e ) {
         $("#Larvae, label[for=Larvae]").show();
         $("#Lifehist, label[for=Lifehist]").show();
         $("#Managementmeasures, label[for=Managementmeasures]").show();
+        $("#Mapopt, label[for=Mapopt]").show();
         $("#Mandatorylogbook, label[for=Mandatorylogbook]").show();
         $("#Maturity, label[for=Maturity]").show();
         $("#Minutes, label[for=Minutes]").show();
@@ -2665,6 +2711,7 @@ function filteropts( e ) {
         $("#Catch, label[for=Catch]").show();
         $("#CatchSummary, label[forCatchSummary]").show();
         $("#Catchability, label[for=Catchability]").show();
+        $("#CodeMeta, label[for=CodeMeta]").show();
         $("#Collectors, label[for=Collectors]").show();
         $("#Correspondance, label[for=Correspondance]").show();
         $("#Cris, label[for=Cris]").show();
@@ -2688,6 +2735,7 @@ function filteropts( e ) {
         $("#Lifehist, label[for=Lifehist]").show();
         $("#Lobstercldb, label[for=Lobstercldb]").show();
         $("#Managementmeasures, label[for=Managementmeasures]").show();
+        $("#Mapopt, label[for=Mapopt]").show();
         $("#Mandatorylogbook, label[for=Mandatorylogbook]").show();
         $("#Maturity, label[for=Maturity]").show();
         $("#Minutes, label[for=Minutes]").show();
@@ -2748,7 +2796,6 @@ $('a[href="#enter"]').on('click', function() {
 
    $("#strict, label[for=strict]").hide();
 });
-
 
 
 </script>
