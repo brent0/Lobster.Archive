@@ -166,11 +166,10 @@ r.remove <- function(uri = ""){
 #' @export
 r.choosedir <- function(sub = F, def = "L:/"){
   cont = FALSE
-
+  dx = NULL
   out <- tryCatch(
     {
       library(rChoiceDialogs)
-
       if(def == ""){
         def = "L:"
         Sys.setenv('LAARC' = "L:")
@@ -194,7 +193,6 @@ r.choosedir <- function(sub = F, def = "L:/"){
   )
   if(cont){
     fl = list.files(dx, full.names = T, recursive = sub )
-
     #remove any temporary files
     tempind = which(grepl("~\\$", fl))
     if(length(tempind) > 0 ){

@@ -342,7 +342,7 @@ $("#messopts").dialog({
 						},
             "Ignore":  function() {
 					var req = ocpu.rpc("changedrive",{}, function(output){
-            dl = output;
+            dl = output[0];
 
           });
           req.fail(function(){
@@ -1668,13 +1668,16 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
   $("#btnSubmit").click(function(){
     var check = $('#rec').prop("checked");
 	  var req = ocpu.rpc("r.choosedir",{sub: check, def: dl }, function(mes){
+
 		if(mes == false){
 
 		}
 		else{
+
 		  var obj = JSON.parse(mes);
       var strmess = String(obj["files"]);
       var omit = obj["omit"];
+
       var arrmess = strmess.split(',');
       var i;
       var x;
@@ -1695,28 +1698,28 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 
 });
 
- window.onload = function () {
-        window.addEventListener("beforeunload", function (e) {
-        var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
-	      if(mes == false){
-	        return 'Backup Failed!! ' + mes;
-	      }else{
-	       return mes + '  BYE!';
-    	  }
-        });
+// window.onload = function () {
+//        window.addEventListener("beforeunload", function (e) {
+//        var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
+//	      if(mes == false){
+//	        return 'Backup Failed!! ' + mes;
+//	      }else{
+//	       return mes + '  BYE!';
+//    	  }
+//        });
+//
+//        });
+//    };
 
-        });
-    };
 
-
-var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
-	  if(mes == false){
-	    alert("Backup Failed!! " + mes);
-	  }else{
-	   $('#mesbak').val($('#mesbak').val()+mes);
-     alert(mes = "  BYE!");
-	  }
-});
+//var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
+//	  if(mes == false){
+//	    alert("Backup Failed!! " + mes);
+//	  }else{
+//	   $('#mesbak').val($('#mesbak').val()+mes);
+//     alert(mes = "  BYE!");
+//	  }
+//});
 
 
 </script>
@@ -2333,7 +2336,11 @@ function filteropts( e ) {
       var target = $( e.target );
       $("#datatype").val(target[ 0 ].id);
 
-      if(true){
+      if(true){}
+       //Initialy created with options to hide and show various tags however this               //capabilty is no longer required. I will leave the logic here since a lot of            //work and may be relevant or usefull someday.
+
+        //Hide
+        /*
         $("#abstract, label[for=abstract]").hide();
         $("#lfa, label[for=lfa]").hide();
 
@@ -2779,6 +2786,89 @@ function filteropts( e ) {
         $("#More, label[for=More]").hide();
 
       }
+*/
+// Add in this to show all except ...
+        $("#abstract, label[for=abstract]").show();
+        $("#lfa, label[for=lfa]").show();
+
+        $("#Depth, label[for=Depth]").show();
+        $("#advisorycommittee, label[for=advisorycommittee]").show();
+        $("#arial, label[for=arial]").show();
+        $("#assessment, label[for=assessment]").show();
+        $("#Bait, label[for=Bait]").show();
+        $("#Bycatch, label[for=Bycatch]").show();
+        $("#Catch, label[for=Catch]").show();
+        $("#CatchSummary, label[forCatchSummary]").show();
+        $("#Catchability, label[for=Catchability]").show();
+        $("#CodeMeta, label[for=CodeMeta]").show();
+        $("#Collectors, label[for=Collectors]").show();
+        $("#Correspondance, label[for=Correspondance]").show();
+        $("#Cris, label[for=Cris]").show();
+        $("#Cusk, label[for=Cusk]").show();
+
+        $("#District, label[for=District]").show();
+        $("#Dive, label[for=Dive]").show();
+        $("#Dredge, label[for=Dredge]").show();
+        $("#Eggdata, label[for=Eggdata]").show();
+        $("#Effort, label[for=Effort]").show();
+        $("#Environmentalconditions, label[for=Environmentalconditions]").show();
+        $("#Framework, label[for=Framework]").show();
+        $("#Gearspecifications, label[for=Gearspecifications]").show();
+        $("#Gulf, label[for=Gulf]").show();
+        $("#Historical, label[for=Historical]").show();
+        $("#Images, label[for=Images]").show();
+        $("#Inoracle, label[for=Inoracle]").show();
+        $("#Indigenous, label[for=Indigenous]").show();
+        $("#Interview, label[for=Interview]").show();
+        $("#Journal, label[for=Journal]").show();
+        $("#Larvae, label[for=Larvae]").show();
+        $("#Lengthfrequency, label[for=Lengthfrequency]").show();
+        $("#Lifehist, label[for=Lifehist]").show();
+        $("#Lobstercldb, label[for=Lobstercldb]").show();
+        $("#Managementmeasures, label[for=Managementmeasures]").show();
+        $("#Mapopt, label[for=Mapopt]").show();
+        $("#Mandatorylogbook, label[for=Mandatorylogbook]").show();
+        $("#Maturity, label[for=Maturity]").show();
+        $("#Minutes, label[for=Minutes]").show();
+        $("#Morphometrics, label[for=Morphometrics]").show();
+        $("#MSC, label[for=MSC]").show();
+        $("#Name, label[for=Name]").show();
+        $("#Newfoundland, label[for=Newfoundland]").show();
+        $("#Newspaper, label[for=Newspaper]").show();
+        $("#Notentered, label[for=Notentered]").show();
+        $("#Offshore, label[for=Offshore]").show();
+        $("#Pages, label[for=Pages]").show();
+        $("#Porttdiv, #Port, label[for=Port]").show();
+        $("#Portcodetdiv, #Portcode, label[for=Portcode]").show();
+        $("#Communitytdiv, #Community, label[for=Community]").show();
+        $("#Provtdiv, #Prov, label[for=Prov]").show();
+        $("#Fishingpositions, label[for=Fishingpositions]").show();
+        $("#Poster, label[for=Poster]").show();
+        $("#Partial, label[for=Partial]").show();
+        $("#Price, label[for=Price]").show();
+        $("#Proceedings, label[for=Proceedings]").show();
+        $("#Rawdata, label[for=Rawdata]").show();
+        $("#Review, label[for=Review]").show();
+        $("#Report, label[for=Report]").show();
+        $("#Setdetails, label[for=Setdetails]").show();
+        $("#Slipweights, label[for=Slipweights]").show();
+        $("#Soaktime, label[for=Soaktime]").show();
+        $("#Species, label[for=Species]").show();
+        $("#Statdistricttdiv, #Statdistrict, label[for=Statdistrict]").show();
+        $("#Substrate, label[for=Substrate]").show();
+        $("#Suction, label[for=Suction]").show();
+        $("#Temperature, label[for=Temperature]").show();
+        $("#Thesis, label[for=Thesis]").show();
+        $("#Trapbased, label[for=Trapbased]").show();
+        $("#Trawl, label[for=Trawl]").show();
+        $("#Update, label[for=Update]").show();
+        $("#Unitedstates, label[for=Unitedstates]").show();
+        $("#Video, label[for=Video]").show();
+        $("#Vnotch, label[for=Vnotch]").show();
+        $("#Voluntarylogbook, label[for=Voluntarylogbook]").show();
+        $("#Workshop, label[for=Workshop]").show();
+        $("#More, label[for=More]").hide();
+
 
 }
 $('a[href="#retrieve"]').on('click', function() {
@@ -2797,6 +2887,7 @@ $('a[href="#enter"]').on('click', function() {
    $("#strict, label[for=strict]").hide();
 });
 
+  $("#More, label[for=More]").hide();
 
 </script>
 
