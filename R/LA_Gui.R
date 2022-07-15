@@ -165,32 +165,42 @@ r.remove <- function(uri = ""){
 #' @return file list
 #' @export
 r.choosedir <- function(sub = F, def = "L:/"){
+
   cont = FALSE
   dx = NULL
-  out <- tryCatch(
-    {
-      library(rChoiceDialogs)
-      if(def == ""){
-        def = "L:"
-        Sys.setenv('LAARC' = "L:")
-        dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
+  while(!cont){
+    # out <- tryCatch({
+    library(rChoiceDialogs)
 
-        dx = gsub("\\\\", "/", dx)
-      }else{
-        def = sub("/", "", def)
-        Sys.setenv('LAARC' = def)
-        dx = rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F)
-        dx = gsub("\\\\", "/", dx)
-      }
-      cont = TRUE
-    },
-    error=function(cond) {
-      Sys.sleep(1)
-      r.choosedir(sub = sub, def = def)
-    },
-    finally={
+
+    if(def == ""){
+      def = "L:"
+      Sys.setenv('LAARC' = "L:")
+
+    }else{
+      def = sub("/", "", def)
+      Sys.setenv('LAARC' = def)
+
     }
-  )
+    testerr = try(silent= T, rChoiceDialogs::jchoose.dir(default = Sys.getenv('LAARC'),  caption = "Choose Directory", modal = F))
+    if(class(testerr) == "try-error"){
+      cont = FALSE
+    }
+    else{
+      dx = testerr
+      dx = gsub(" \\\\", "/", dx)
+      cont = TRUE
+    }
+  }
+
+   # },
+  #  error=function(cond) {
+  #    Sys.sleep(1)
+  #    r.choosedir(sub = sub, def = def)
+  #  },
+  #  finally={
+  #  }
+ # )
   if(cont){
     fl = list.files(dx, full.names = T, recursive = sub )
     #remove any temporary files
@@ -222,7 +232,11 @@ r.choosedir <- function(sub = F, def = "L:/"){
     ret = NULL
     ret$omit = length(indexi)
     ret$files = c(dx, ind)
+
     return(jsonlite::toJSON(ret))
+  }
+  else{
+
   }
 }
 

@@ -1666,6 +1666,7 @@ var req = ocpu.rpc("r.backup",{def: dl }, function(mes){
 
 })
   $("#btnSubmit").click(function(){
+
     var check = $('#rec').prop("checked");
 	  var req = ocpu.rpc("r.choosedir",{sub: check, def: dl }, function(mes){
 
